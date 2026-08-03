@@ -133,11 +133,6 @@ where Scalar: ExpressibleByFloatLiteral & BinaryFloatingPoint {
 // MARK: - Codable
 
 #if !hasFeature(Embedded)
-    // swiftlint:disable typed_throws_required no_any_protocol_existential
-    // reason: Encodable.encode(to:) and Decodable.init(from:) are Swift standard-library
-    // protocol requirements with fixed signatures — the untyped `throws` and the
-    // `any Encoder` / `any Decoder` existentials are mandated by the witnessed protocols
-    // and cannot be narrowed to typed throws or concrete types.
     extension Complex.Number: Encodable where Scalar: Encodable {
         /// Encodes this complex number as an unkeyed container of its real and imaginary parts.
         public func encode(to encoder: any Encoder) throws {
@@ -156,5 +151,4 @@ where Scalar: ExpressibleByFloatLiteral & BinaryFloatingPoint {
             self.init(real, imaginary)
         }
     }
-// swiftlint:enable typed_throws_required no_any_protocol_existential
 #endif
