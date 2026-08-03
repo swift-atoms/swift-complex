@@ -18,7 +18,7 @@ Lint.run(dependencies: [
         url: "https://github.com/swift-primitives/swift-primitives-linter-rules.git",
         branch: "main",
         products: ["Linter Primitives Rules"]
-    ),
+    )
 ]) {
     Lint.Rule.Bundle.primitives
 }
