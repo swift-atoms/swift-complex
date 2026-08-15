@@ -60,7 +60,10 @@ extension Complex.Number.Equals where Scalar: BinaryFloatingPoint & Numeric.Tran
     ///   - tolerance: Maximum allowed absolute difference in the norm.
     /// - Returns: `true` if the distance between values is within tolerance.
     @inlinable
-    public func approximate(_ other: Complex.Number<Scalar>, tolerance: Complex.Real<Scalar>) -> Bool {
+    public func approximate(
+        _ other: Complex.Number<Scalar>,
+        tolerance: Complex.Real<Scalar>
+    ) -> Bool {
         (complex - other).magnitude() <= tolerance
     }
 
@@ -128,7 +131,11 @@ extension Complex.Number.Equals.Componentwise where Scalar: BinaryFloatingPoint 
     ///   - tolerance: Maximum allowed difference for each component.
     /// - Returns: `true` if both components are within tolerance.
     @inlinable
-    public func approximate(_ other: Complex.Number<Scalar>, tolerance: Complex.Real<Scalar>) -> Bool {
-        abs(complex.real._value - other.real._value) <= tolerance._value && abs(complex.imaginary._value - other.imaginary._value) <= tolerance._value
+    public func approximate(
+        _ other: Complex.Number<Scalar>,
+        tolerance: Complex.Real<Scalar>
+    ) -> Bool {
+        abs(complex.real._value - other.real._value) <= tolerance._value
+            && abs(complex.imaginary._value - other.imaginary._value) <= tolerance._value
     }
 }

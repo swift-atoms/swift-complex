@@ -120,7 +120,8 @@ extension Complex.Imaginary: CustomStringConvertible where Scalar: CustomStringC
     public var description: String { "\(_value.description)i" }
 }
 
-extension Complex.Imaginary: CustomDebugStringConvertible where Scalar: CustomDebugStringConvertible {
+extension Complex.Imaginary: CustomDebugStringConvertible
+where Scalar: CustomDebugStringConvertible {
     /// A textual representation of this imaginary number suitable for debugging.
     @inlinable
     public var debugDescription: String { "Imaginary(\(String(reflecting: _value)))" }

@@ -59,7 +59,10 @@ extension Complex.Imaginary.Equals where Scalar: BinaryFloatingPoint {
     ///   - tolerance: Maximum allowed absolute difference (a real value).
     /// - Returns: `true` if the difference is within tolerance.
     @inlinable
-    public func approximate(_ other: Complex.Imaginary<Scalar>, tolerance: Complex.Real<Scalar>) -> Bool {
+    public func approximate(
+        _ other: Complex.Imaginary<Scalar>,
+        tolerance: Complex.Real<Scalar>
+    ) -> Bool {
         abs(imaginary._value - other._value) <= tolerance._value
     }
 

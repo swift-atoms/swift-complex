@@ -64,6 +64,9 @@ extension Complex.Number.Magnitude where Scalar: BinaryFloatingPoint & Numeric.T
     /// are needed or when the square is required.
     @inlinable
     public var squared: Complex.Real<Scalar> {
-        Complex.Real(complex.real._value * complex.real._value + complex.imaginary._value * complex.imaginary._value)
+        Complex.Real(
+            complex.real._value * complex.real._value + complex.imaginary._value
+                * complex.imaginary._value
+        )
     }
 }

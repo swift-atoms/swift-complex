@@ -34,7 +34,8 @@ extension Complex.Number.Polar where Scalar: BinaryFloatingPoint & Numeric.Trans
     /// The modulus is `√(real² + imaginary²)`, computed using `hypot`
     /// to avoid overflow.
     @inlinable
-    public static func length(of z: Complex.Number<Scalar>) -> Complex.Number<Scalar>.Modulus.Value {
+    public static func length(of z: Complex.Number<Scalar>) -> Complex.Number<Scalar>.Modulus.Value
+    {
         Complex.Number.Modulus.Value(_unchecked: Scalar._hypot(z.real._value, z.imaginary._value))
     }
 
