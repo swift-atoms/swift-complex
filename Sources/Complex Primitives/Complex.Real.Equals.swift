@@ -59,7 +59,8 @@ extension Complex.Real.Equals where Scalar: BinaryFloatingPoint {
     ///   - tolerance: Maximum allowed absolute difference.
     /// - Returns: `true` if the difference is within tolerance.
     @inlinable
-    public func approximate(_ other: Complex.Real<Scalar>, tolerance: Complex.Real<Scalar>) -> Bool {
+    public func approximate(_ other: Complex.Real<Scalar>, tolerance: Complex.Real<Scalar>) -> Bool
+    {
         abs(real._value - other._value) <= tolerance._value
     }
 

@@ -91,7 +91,9 @@ extension Complex.Number.Math.Exp where Scalar: BinaryFloatingPoint & Numeric.Tr
             // Use half-scale trick to avoid overflow
             let half = Scalar._exp(x / 2)
             let phase = Complex.Number(Scalar._cos(y), Scalar._sin(y))
-            return phase.scalar.multiply(by: Complex.Real(half)).scalar.multiply(by: Complex.Real(half))
+            return phase.scalar.multiply(by: Complex.Real(half)).scalar.multiply(
+                by: Complex.Real(half)
+            )
         }
 
         return Complex.Number(
@@ -118,7 +120,9 @@ extension Complex.Number.Math.Exp.Minus where Scalar: BinaryFloatingPoint & Nume
         guard x < Scalar._log(Scalar.greatestFiniteMagnitude) - 1 else {
             let half = Scalar._exp(x / 2)
             let phase = Complex.Number(Scalar._cos(y), Scalar._sin(y))
-            return phase.scalar.multiply(by: Complex.Real(half)).scalar.multiply(by: Complex.Real(half))
+            return phase.scalar.multiply(by: Complex.Real(half)).scalar.multiply(
+                by: Complex.Real(half)
+            )
         }
 
         // cos(y) - 1 = -2 sin²(y/2)

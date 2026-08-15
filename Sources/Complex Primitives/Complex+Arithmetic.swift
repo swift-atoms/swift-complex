@@ -157,7 +157,8 @@ extension Complex.Number where Scalar: BinaryFloatingPoint {
     /// algorithm otherwise to avoid spurious overflow/underflow.
     @inlinable
     public static func / (lhs: Self, rhs: Self) -> Self {
-        let lengthSquared = rhs.real._value * rhs.real._value + rhs.imaginary._value * rhs.imaginary._value
+        let lengthSquared =
+            rhs.real._value * rhs.real._value + rhs.imaginary._value * rhs.imaginary._value
         guard lengthSquared.isNormal else {
             return rescaledDivide(lhs, rhs)
         }
@@ -202,7 +203,9 @@ extension Complex.Number where Scalar: BinaryFloatingPoint {
         )
         let wPrime = Self(w.real._value * s, w.imaginary._value * s)
         let zPrime = Self(z.real._value * s, z.imaginary._value * s)
-        let wPrimeLengthSq = wPrime.real._value * wPrime.real._value + wPrime.imaginary._value * wPrime.imaginary._value
+        let wPrimeLengthSq =
+            wPrime.real._value * wPrime.real._value + wPrime.imaginary._value
+            * wPrime.imaginary._value
         let a = zPrime.real._value
         let b = zPrime.imaginary._value
         let c = wPrime.real._value

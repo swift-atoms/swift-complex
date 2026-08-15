@@ -32,7 +32,9 @@ extension Complex.Number.Math where Scalar: BinaryFloatingPoint & Numeric.Transc
             let phase = Complex.Number(Scalar._cos(y), Scalar._sin(y))
             let first = Scalar._exp(abs(x) / 2)
             let second = first / 2
-            return phase.scalar.multiply(by: Complex.Real(first)).scalar.multiply(by: Complex.Real(second))
+            return phase.scalar.multiply(by: Complex.Real(first)).scalar.multiply(
+                by: Complex.Real(second)
+            )
         }
 
         return Complex.Number(
@@ -60,7 +62,9 @@ extension Complex.Number.Math where Scalar: BinaryFloatingPoint & Numeric.Transc
             let phase = Complex.Number(Scalar._cos(y), Scalar._sin(y))
             let first = Scalar._exp(abs(x) / 2)
             let second = Scalar(signOf: x, magnitudeOf: first / 2)
-            return phase.scalar.multiply(by: Complex.Real(first)).scalar.multiply(by: Complex.Real(second))
+            return phase.scalar.multiply(by: Complex.Real(first)).scalar.multiply(
+                by: Complex.Real(second)
+            )
         }
 
         return Complex.Number(

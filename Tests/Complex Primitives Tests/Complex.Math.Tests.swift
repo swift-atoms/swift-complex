@@ -51,8 +51,8 @@ struct ComplexMathTests {
     func expMinusOne() {
         // expm1(0) = 0
         let z0 = Complex.Number<Double>.zero
-        let expm1_0 = z0.math.exp.minus.one()
-        #expect(expm1_0.equals.approximate(.zero, tolerance: tolerance))
+        let expm1Zero = z0.math.exp.minus.one()
+        #expect(expm1Zero.equals.approximate(.zero, tolerance: tolerance))
 
         // For small z, expm1(z) ≈ z
         let small = Complex.Number(1e-10, 1e-10)
@@ -92,8 +92,8 @@ struct ComplexMathTests {
     func logOnePlus() {
         // log1p(0) = 0
         let z0 = Complex.Number<Double>.zero
-        let log1p_0 = z0.math.log.one.plus()
-        #expect(log1p_0.equals.approximate(.zero, tolerance: tolerance))
+        let log1pZero = z0.math.log.one.plus()
+        #expect(log1pZero.equals.approximate(.zero, tolerance: tolerance))
 
         // For small z, log1p(z) ≈ z
         let small = Complex.Number(1e-10, 1e-10)
