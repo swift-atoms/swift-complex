@@ -1,23 +1,5 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-primitives open source project
-//
-// Copyright (c) 2024-2025 Coen ten Thije Boonkkamp and the swift-primitives
-// project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
-// MARK: - BinaryFloatingPoint & Numeric.Transcendental
-
 extension Complex.Number.Math where Scalar: BinaryFloatingPoint & Numeric.Transcendental {
-    /// The complex hyperbolic cosine.
-    ///
-    /// ```
-    /// cosh(x + iy) = cosh(x) cos(y) + i sinh(x) sin(y)
-    /// ```
+
     @inlinable
     public func cosh() -> Complex.Number<Scalar> {
         let z = complex
@@ -26,7 +8,6 @@ extension Complex.Number.Math where Scalar: BinaryFloatingPoint & Numeric.Transc
         let x = z.real._value
         let y = z.imaginary._value
 
-        // For large |x|, cosh(x) ≈ sinh(x) ≈ exp(|x|)/2
         let threshold = -Scalar._log(Scalar.ulpOfOne)
         guard abs(x) < threshold else {
             let phase = Complex.Number(Scalar._cos(y), Scalar._sin(y))
@@ -43,11 +24,6 @@ extension Complex.Number.Math where Scalar: BinaryFloatingPoint & Numeric.Transc
         )
     }
 
-    /// The complex hyperbolic sine.
-    ///
-    /// ```
-    /// sinh(x + iy) = sinh(x) cos(y) + i cosh(x) sin(y)
-    /// ```
     @inlinable
     public func sinh() -> Complex.Number<Scalar> {
         let z = complex
@@ -56,7 +32,6 @@ extension Complex.Number.Math where Scalar: BinaryFloatingPoint & Numeric.Transc
         let x = z.real._value
         let y = z.imaginary._value
 
-        // For large |x|, sinh(x) ≈ cosh(x) ≈ sign(x) exp(|x|)/2
         let threshold = -Scalar._log(Scalar.ulpOfOne)
         guard abs(x) < threshold else {
             let phase = Complex.Number(Scalar._cos(y), Scalar._sin(y))
@@ -73,11 +48,6 @@ extension Complex.Number.Math where Scalar: BinaryFloatingPoint & Numeric.Transc
         )
     }
 
-    /// The complex hyperbolic tangent.
-    ///
-    /// ```
-    /// tanh(z) = sinh(z) / cosh(z)
-    /// ```
     @inlinable
     public func tanh() -> Complex.Number<Scalar> {
         let z = complex
@@ -86,7 +56,6 @@ extension Complex.Number.Math where Scalar: BinaryFloatingPoint & Numeric.Transc
         let x = z.real._value
         let y = z.imaginary._value
 
-        // For large |x|, tanh(z) → ±1
         let threshold = -Scalar._log(Scalar.ulpOfOne)
         guard abs(x) < threshold else {
             return Complex.Number(
@@ -95,7 +64,6 @@ extension Complex.Number.Math where Scalar: BinaryFloatingPoint & Numeric.Transc
             )
         }
 
-        // General case
         return z.math.sinh() / z.math.cosh()
     }
 }

@@ -1,23 +1,9 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-primitives open source project
-//
-// Copyright (c) 2024-2025 Coen ten Thije Boonkkamp and the swift-primitives
-// project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
 import Testing
 
 @testable import Complex_Primitives
 
 @Suite
 struct ComplexPropertiesTests {
-
-    // MARK: - Finiteness
 
     @Test
     func isFinite() {
@@ -34,8 +20,6 @@ struct ComplexPropertiesTests {
         #expect(!nan.isFinite)
     }
 
-    // MARK: - Zero
-
     @Test
     func isZero() {
         let zero = Complex.Number<Double>.zero
@@ -44,8 +28,6 @@ struct ComplexPropertiesTests {
         let notZero = Complex.Number(0.0, 1e-100)
         #expect(!notZero.isZero)
     }
-
-    // MARK: - Normal
 
     @Test
     func isNormal() {
@@ -59,8 +41,6 @@ struct ComplexPropertiesTests {
         #expect(!zero.isNormal)
     }
 
-    // MARK: - Subnormal
-
     @Test
     func isSubnormal() {
         let subnormal = Complex.Number(Double.leastNonzeroMagnitude, 0.0)
@@ -73,17 +53,13 @@ struct ComplexPropertiesTests {
         #expect(!zero.isSubnormal)
     }
 
-    // MARK: - Normalized
-
     @Test
     func normalized() {
         let z = Complex.Number(3.0, 4.0)
         let n = z.normalized!
 
-        // Normalized should have unit length
         #expect(n.magnitude().equals.approximate(1.0, tolerance: 1e-10))
 
-        // Should have same phase
         #expect(
             n.polar.phase.underlying.equals.approximate(
                 z.polar.phase.underlying,
@@ -104,8 +80,6 @@ struct ComplexPropertiesTests {
         #expect(inf.normalized == nil)
     }
 
-    // MARK: - Magnitude
-
     @Test
     func magnitude() {
         let z = Complex.Number(3.0, 4.0)
@@ -118,8 +92,6 @@ struct ComplexPropertiesTests {
         #expect(z.magnitude.squared.equals.approximate(25.0, tolerance: 1e-10))
     }
 
-    // MARK: - String Representation
-
     @Test
     func description() {
         let z = Complex.Number(3.0, 4.0)
@@ -128,8 +100,6 @@ struct ComplexPropertiesTests {
         let inf = Complex.Number<Double>.infinity
         #expect(inf.description == "inf")
     }
-
-    // MARK: - Approximate Equality
 
     @Test
     func approximateEquality() {

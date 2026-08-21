@@ -1,23 +1,9 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-primitives open source project
-//
-// Copyright (c) 2024-2025 Coen ten Thije Boonkkamp and the swift-primitives
-// project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
 import Testing
 
 @testable import Complex_Primitives
 
 @Suite
 struct ComplexArithmeticTests {
-
-    // MARK: - Construction
 
     @Test
     func construction() {
@@ -48,8 +34,6 @@ struct ComplexArithmeticTests {
         #expect(i.imaginary == 1.0)
     }
 
-    // MARK: - Addition
-
     @Test
     func addition() {
         let z = Complex.Number(1.0, 2.0)
@@ -71,8 +55,6 @@ struct ComplexArithmeticTests {
         #expect(sum2.imaginary == 2.0)
     }
 
-    // MARK: - Subtraction
-
     @Test
     func subtraction() {
         let z = Complex.Number(5.0, 7.0)
@@ -90,11 +72,9 @@ struct ComplexArithmeticTests {
         #expect(neg.imaginary == 4.0)
     }
 
-    // MARK: - Multiplication
-
     @Test
     func multiplication() {
-        // (1 + 2i)(3 + 4i) = 3 + 4i + 6i + 8i² = 3 + 10i - 8 = -5 + 10i
+
         let z = Complex.Number(1.0, 2.0)
         let w = Complex.Number(3.0, 4.0)
         let product = z * w
@@ -118,11 +98,9 @@ struct ComplexArithmeticTests {
         #expect(iSquared.imaginary.equals.approximate(0.0, tolerance: 1e-15))
     }
 
-    // MARK: - Division
-
     @Test
     func division() {
-        // (3 + 4i)/(1 + 2i) = (3 + 4i)(1 - 2i)/5 = (3 + 8 + 4i - 6i)/5 = (11 - 2i)/5
+
         let z = Complex.Number(3.0, 4.0)
         let w = Complex.Number(1.0, 2.0)
         let quotient = z / w
@@ -138,49 +116,39 @@ struct ComplexArithmeticTests {
         #expect(quotient.imaginary == 3.0)
     }
 
-    // MARK: - Conjugate
-
     @Test
     func conjugate() {
         let z = Complex.Number(3.0, 4.0)
 
-        // Static method
         let conj1 = Complex.Number.conjugate(of: z)
         #expect(conj1.real == 3.0)
         #expect(conj1.imaginary == -4.0)
 
-        // Instance property
         let conj2 = z.conjugate
         #expect(conj2 == conj1)
 
-        // Conjugate of conjugate is original
         #expect(conj1.conjugate == z)
     }
 
     @Test
     func conjugateProduct() {
-        // z * conjugate(z) = |z|²
+
         let z = Complex.Number(3.0, 4.0)
         let product = z * z.conjugate
         #expect(product.real.equals.approximate(25.0, tolerance: 1e-10))
         #expect(product.imaginary.equals.approximate(0.0, tolerance: 1e-15))
     }
 
-    // MARK: - Reciprocal
-
     @Test
     func reciprocal() {
         let z = Complex.Number(3.0, 4.0)
 
-        // Static method
         let recip1 = Complex.Number.reciprocal(of: z)
 
-        // z * 1/z = 1
         let product = z * recip1
         #expect(product.real.equals.approximate(1.0, tolerance: 1e-10))
         #expect(product.imaginary.equals.approximate(0.0, tolerance: 1e-10))
 
-        // Instance property
         let recip2 = z.reciprocal
         #expect(recip1 == recip2)
     }

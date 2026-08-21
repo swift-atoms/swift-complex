@@ -1,21 +1,5 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-primitives open source project
-//
-// Copyright (c) 2024-2025 Coen ten Thije Boonkkamp and the swift-primitives
-// project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
-// MARK: - Double
-
 extension Numeric.Relaxed {
-    /// `a + b` for complex numbers, with relaxed semantics.
-    ///
-    /// Permits the optimizer to reassociate and form FMAs componentwise.
+
     @inlinable
     public static func sum(
         _ a: Complex.Number<Double>,
@@ -27,15 +11,12 @@ extension Numeric.Relaxed {
         )
     }
 
-    /// `a * b` for complex numbers, with relaxed semantics.
-    ///
-    /// Permits the optimizer to reassociate and form FMAs.
     @inlinable
     public static func product(
         _ a: Complex.Number<Double>,
         _ b: Complex.Number<Double>
     ) -> Complex.Number<Double> {
-        // (a + bi)(c + di) = (ac - bd) + (ad + bc)i
+
         Complex.Number(
             Self.sum(
                 Self.product(a.real._value, b.real._value),
@@ -48,7 +29,6 @@ extension Numeric.Relaxed {
         )
     }
 
-    /// `a * b + c` for complex numbers, with relaxed semantics.
     @inlinable
     public static func multiplyAdd(
         _ a: Complex.Number<Double>,
@@ -58,7 +38,6 @@ extension Numeric.Relaxed {
         sum(product(a, b), c)
     }
 
-    /// `z * s` for complex times scalar, with relaxed semantics.
     @inlinable
     public static func product(
         _ z: Complex.Number<Double>,
@@ -70,7 +49,6 @@ extension Numeric.Relaxed {
         )
     }
 
-    /// `s * z` for scalar times complex, with relaxed semantics.
     @inlinable
     public static func product(
         _ s: Double,
@@ -80,10 +58,8 @@ extension Numeric.Relaxed {
     }
 }
 
-// MARK: - Float
-
 extension Numeric.Relaxed {
-    /// `a + b` for complex numbers, with relaxed semantics.
+
     @inlinable
     public static func sum(
         _ a: Complex.Number<Float>,
@@ -95,7 +71,6 @@ extension Numeric.Relaxed {
         )
     }
 
-    /// `a * b` for complex numbers, with relaxed semantics.
     @inlinable
     public static func product(
         _ a: Complex.Number<Float>,
@@ -113,7 +88,6 @@ extension Numeric.Relaxed {
         )
     }
 
-    /// `a * b + c` for complex numbers, with relaxed semantics.
     @inlinable
     public static func multiplyAdd(
         _ a: Complex.Number<Float>,
@@ -123,7 +97,6 @@ extension Numeric.Relaxed {
         sum(product(a, b), c)
     }
 
-    /// `z * s` for complex times scalar, with relaxed semantics.
     @inlinable
     public static func product(
         _ z: Complex.Number<Float>,
@@ -135,7 +108,6 @@ extension Numeric.Relaxed {
         )
     }
 
-    /// `s * z` for scalar times complex, with relaxed semantics.
     @inlinable
     public static func product(
         _ s: Float,
