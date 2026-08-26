@@ -1,7 +1,7 @@
-import Tagged_Primitives_Standard_Library_Integration
+import Tagged_Standard_Library_Integration
 import Testing
 
-@testable import Complex_Primitives
+@testable import Complex
 
 @Suite
 struct ComplexPolarTests {

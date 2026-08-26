@@ -1,6 +1,6 @@
 import Testing
 
-@testable import Complex_Primitives
+@testable import Complex
 
 @Suite
 struct ComplexPropertiesTests {
