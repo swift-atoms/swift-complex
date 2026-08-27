@@ -12,19 +12,22 @@ let package = Package(
         .visionOS(.v27),
     ],
     products: [
-        .library(name: "Complex", targets: ["Complex"]),
         .library(
-            name: "Complex Test Support",
-            targets: ["Complex Test Support"]
+            name: "Complex",
+            targets: ["Complex"]
+        ),
+        .library(
+            name: "Complex Standard Library Integration",
+            targets: ["Complex Standard Library Integration"]
+        ),
+        .library(
+            name: "Complex Apple Foundation Integration",
+            targets: ["Complex Apple Foundation Integration"]
         ),
     ],
     dependencies: [
         .package(
             url: "https://github.com/swift-molecules/swift-numeric.git",
-            branch: "main"
-        ),
-        .package(
-            url: "https://github.com/swift-molecules/swift-dimension.git",
             branch: "main"
         ),
         .package(
@@ -37,31 +40,23 @@ let package = Package(
             name: "Complex",
             dependencies: [
                 .product(name: "Real", package: "swift-numeric"),
-                .product(name: "Numeric Relaxed", package: "swift-numeric"),
-                .product(name: "Dimension", package: "swift-dimension"),
+                .product(name: "Tagged", package: "swift-tagged"),
             ]
         ),
         .target(
-            name: "Complex Test Support",
+            name: "Complex Standard Library Integration",
+            dependencies: ["Complex"]
+        ),
+        .target(
+            name: "Complex Apple Foundation Integration",
             dependencies: [
                 "Complex",
-                .product(
-                    name: "Tagged Test Support",
-                    package: "swift-tagged"
-                ),
-            ],
-            path: "Tests/Support"
+                "Complex Standard Library Integration",
+            ]
         ),
         .testTarget(
             name: "Complex Tests",
-            dependencies: [
-                "Complex",
-                .product(
-                    name: "Tagged Standard Library Integration",
-                    package: "swift-tagged"
-                ),
-                "Complex Test Support",
-            ]
+            dependencies: ["Complex"]
         ),
     ],
     swiftLanguageModes: [.v6]

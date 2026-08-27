@@ -1,3 +1,5 @@
+public import Complex
+
 extension Complex.Number where Scalar: BinaryFloatingPoint {
 
     public var description: String {

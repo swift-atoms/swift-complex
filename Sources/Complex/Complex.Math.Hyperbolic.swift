@@ -1,3 +1,5 @@
+public import Real
+
 extension Complex.Number.Math where Scalar: BinaryFloatingPoint & Numeric.Transcendental {
 
     @inlinable

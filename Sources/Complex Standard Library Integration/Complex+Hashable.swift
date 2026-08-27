@@ -1,3 +1,5 @@
+public import Complex
+
 extension Complex.Number: Hashable where Scalar: Hashable {
 
     @inlinable

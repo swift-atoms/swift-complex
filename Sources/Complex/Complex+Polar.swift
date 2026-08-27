@@ -1,4 +1,5 @@
-public import Dimension
+public import Real
+public import Tagged
 
 extension Complex.Number {
 
@@ -20,16 +21,6 @@ extension Complex.Number.Polar where Scalar: BinaryFloatingPoint & Numeric.Trans
     }
 
     @inlinable
-    public static func phase(of z: Complex.Number<Scalar>) -> Radian<Scalar> {
-        Radian(_unchecked: Scalar._atan2(z.imaginary._value, z.real._value))
-    }
-
-    @inlinable
-    public var phase: Radian<Scalar> {
-        Self.phase(of: complex)
-    }
-
-    @inlinable
     public static func squared(of z: Complex.Number<Scalar>) -> Scalar {
         z.real._value * z.real._value + z.imaginary._value * z.imaginary._value
     }
@@ -37,18 +28,5 @@ extension Complex.Number.Polar where Scalar: BinaryFloatingPoint & Numeric.Trans
     @inlinable
     public var squared: Scalar {
         Self.squared(of: complex)
-    }
-}
-
-extension Complex.Number where Scalar: BinaryFloatingPoint & Numeric.Transcendental {
-
-    @inlinable
-    public init(length: Complex.Number<Scalar>.Modulus.Value, phase: Radian<Scalar>) {
-        let r = length.underlying
-        let theta = phase.underlying
-        self.init(
-            r * Scalar._cos(theta),
-            r * Scalar._sin(theta)
-        )
     }
 }

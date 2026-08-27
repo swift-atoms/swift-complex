@@ -1,3 +1,5 @@
+public import Complex
+
 extension Complex.Number: Equatable where Scalar: Equatable {
 
     @inlinable
