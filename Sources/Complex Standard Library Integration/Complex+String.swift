@@ -4,7 +4,7 @@ extension Complex.Number where Scalar: BinaryFloatingPoint {
 
     public var description: String {
         guard isFinite else { return "inf" }
-        return "(\(real._value), \(imaginary._value))"
+        return "(\(real.value), \(imaginary.value))"
     }
 }
 
@@ -12,7 +12,7 @@ extension Complex.Number where Scalar: BinaryFloatingPoint {
     extension Complex.Number: CustomDebugStringConvertible {
 
         public var debugDescription: String {
-            "Complex.Number<\(Scalar.self)>(\(String(reflecting: real._value)), \(String(reflecting: imaginary._value)))"
+            "Complex.Number<\(Scalar.self)>(\(String(reflecting: real.value)), \(String(reflecting: imaginary.value)))"
         }
     }
 #endif

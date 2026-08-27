@@ -1,27 +1,30 @@
 import Complex
+import Numeric
+import Numeric_Standard_Library_Integration
+import Tagged
 import Testing
 
 @testable import Complex
 
 @Suite
-struct ComplexArithmeticTests {
+struct `Complex.Number arithmetic` {
 
     @Test
-    func construction() {
+    func `construction`() {
         let z = Complex.Number(3.0, 4.0)
         #expect(z.real == 3.0)
         #expect(z.imaginary == 4.0)
     }
 
     @Test
-    func realConstruction() {
+    func `real construction`() {
         let z = Complex.Number<Double>(5.0)
         #expect(z.real == 5.0)
         #expect(z.imaginary == 0.0)
     }
 
     @Test
-    func staticProperties() {
+    func `static properties`() {
         let zero = Complex.Number<Double>.zero
         #expect(zero.real == 0.0)
         #expect(zero.imaginary == 0.0)
@@ -36,7 +39,7 @@ struct ComplexArithmeticTests {
     }
 
     @Test
-    func addition() {
+    func `addition`() {
         let z = Complex.Number(1.0, 2.0)
         let w = Complex.Number(3.0, 4.0)
         let sum = z + w
@@ -45,7 +48,7 @@ struct ComplexArithmeticTests {
     }
 
     @Test
-    func additionWithReal() {
+    func `addition with real`() {
         let z = Complex.Number(1.0, 2.0)
         let sum1 = z + 5.0.real
         #expect(sum1.real == 6.0)
@@ -57,7 +60,7 @@ struct ComplexArithmeticTests {
     }
 
     @Test
-    func subtraction() {
+    func `subtraction`() {
         let z = Complex.Number(5.0, 7.0)
         let w = Complex.Number(2.0, 3.0)
         let diff = z - w
@@ -66,7 +69,7 @@ struct ComplexArithmeticTests {
     }
 
     @Test
-    func negation() {
+    func `negation`() {
         let z = Complex.Number(3.0, -4.0)
         let neg = -z
         #expect(neg.real == -3.0)
@@ -74,7 +77,7 @@ struct ComplexArithmeticTests {
     }
 
     @Test
-    func multiplication() {
+    func `multiplication`() {
 
         let z = Complex.Number(1.0, 2.0)
         let w = Complex.Number(3.0, 4.0)
@@ -84,7 +87,7 @@ struct ComplexArithmeticTests {
     }
 
     @Test
-    func multiplicationWithReal() {
+    func `multiplication with real`() {
         let z = Complex.Number(2.0, 3.0)
         let product = z * 2.0.real
         #expect(product.real == 4.0)
@@ -92,7 +95,7 @@ struct ComplexArithmeticTests {
     }
 
     @Test
-    func iSquaredIsMinusOne() {
+    func `i squared is minus one`() {
         let i = Complex.Number<Double>.i
         let iSquared = i * i
         #expect(iSquared.real.equals.approximate(-1.0, tolerance: 1e-15))
@@ -100,7 +103,7 @@ struct ComplexArithmeticTests {
     }
 
     @Test
-    func division() {
+    func `division`() {
 
         let z = Complex.Number(3.0, 4.0)
         let w = Complex.Number(1.0, 2.0)
@@ -110,7 +113,7 @@ struct ComplexArithmeticTests {
     }
 
     @Test
-    func divisionByReal() {
+    func `division by real`() {
         let z = Complex.Number(4.0, 6.0)
         let quotient = z / 2.0.real
         #expect(quotient.real == 2.0)
@@ -118,7 +121,7 @@ struct ComplexArithmeticTests {
     }
 
     @Test
-    func conjugate() {
+    func `conjugate`() {
         let z = Complex.Number(3.0, 4.0)
 
         let conj1 = Complex.Number.conjugate(of: z)
@@ -132,7 +135,7 @@ struct ComplexArithmeticTests {
     }
 
     @Test
-    func conjugateProduct() {
+    func `conjugate product`() {
 
         let z = Complex.Number(3.0, 4.0)
         let product = z * z.conjugate
@@ -141,7 +144,7 @@ struct ComplexArithmeticTests {
     }
 
     @Test
-    func reciprocal() {
+    func `reciprocal`() {
         let z = Complex.Number(3.0, 4.0)
 
         let recip1 = Complex.Number.reciprocal(of: z)

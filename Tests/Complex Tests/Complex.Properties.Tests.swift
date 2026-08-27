@@ -1,13 +1,17 @@
 import Complex
+import Complex_Standard_Library_Integration
+import Numeric
+import Numeric_Standard_Library_Integration
+import Tagged
 import Testing
 
 @testable import Complex
 
 @Suite
-struct ComplexPropertiesTests {
+struct `Complex.Number properties` {
 
     @Test
-    func isFinite() {
+    func `is finite`() {
         let finite = Complex.Number(1.0, 2.0)
         #expect(finite.isFinite)
 
@@ -22,7 +26,7 @@ struct ComplexPropertiesTests {
     }
 
     @Test
-    func isZero() {
+    func `is zero`() {
         let zero = Complex.Number<Double>.zero
         #expect(zero.isZero)
 
@@ -31,7 +35,7 @@ struct ComplexPropertiesTests {
     }
 
     @Test
-    func isNormal() {
+    func `is normal`() {
         let normal = Complex.Number(1.0, 2.0)
         #expect(normal.isNormal)
 
@@ -43,7 +47,7 @@ struct ComplexPropertiesTests {
     }
 
     @Test
-    func isSubnormal() {
+    func `is subnormal`() {
         let subnormal = Complex.Number(Double.leastNonzeroMagnitude, 0.0)
         #expect(subnormal.isSubnormal)
 
@@ -55,7 +59,7 @@ struct ComplexPropertiesTests {
     }
 
     @Test
-    func normalized() {
+    func `normalized`() {
         let z = Complex.Number(3.0, 4.0)
         let n = z.normalized!
 
@@ -70,31 +74,31 @@ struct ComplexPropertiesTests {
     }
 
     @Test
-    func normalizedZero() {
+    func `normalized zero`() {
         let zero = Complex.Number<Double>.zero
         #expect(zero.normalized == nil)
     }
 
     @Test
-    func normalizedInfinity() {
+    func `normalized infinity`() {
         let inf = Complex.Number<Double>.infinity
         #expect(inf.normalized == nil)
     }
 
     @Test
-    func magnitude() {
+    func `magnitude`() {
         let z = Complex.Number(3.0, 4.0)
         #expect(z.magnitude().equals.approximate(5.0, tolerance: 1e-10))
     }
 
     @Test
-    func magnitudeSquared() {
+    func `magnitude squared`() {
         let z = Complex.Number(3.0, 4.0)
         #expect(z.magnitude.squared.equals.approximate(25.0, tolerance: 1e-10))
     }
 
     @Test
-    func description() {
+    func `description`() {
         let z = Complex.Number(3.0, 4.0)
         #expect(z.description == "(3.0, 4.0)")
 
@@ -103,7 +107,7 @@ struct ComplexPropertiesTests {
     }
 
     @Test
-    func approximateEquality() {
+    func `approximate equality`() {
         let z = Complex.Number(1.0, 2.0)
         let w = Complex.Number(1.0 + 1e-12, 2.0 + 1e-12)
 
@@ -112,7 +116,7 @@ struct ComplexPropertiesTests {
     }
 
     @Test
-    func approximateEqualityRelative() {
+    func `approximate equality relative`() {
         let z = Complex.Number(1000.0, 2000.0)
         let w = Complex.Number(1000.1, 2000.1)
 
@@ -121,7 +125,7 @@ struct ComplexPropertiesTests {
     }
 
     @Test
-    func componentwiseApproximateEquality() {
+    func `componentwise approximate equality`() {
         let z = Complex.Number(1.0, 2.0)
         let w = Complex.Number(1.0 + 1e-12, 2.0 + 1e-12)
 

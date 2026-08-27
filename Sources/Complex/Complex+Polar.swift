@@ -1,4 +1,4 @@
-public import Real
+public import Numeric
 public import Tagged
 
 extension Complex.Number {
@@ -28,5 +28,30 @@ extension Complex.Number.Polar where Scalar: BinaryFloatingPoint & Numeric.Trans
     @inlinable
     public var squared: Scalar {
         Self.squared(of: complex)
+    }
+}
+
+extension Complex.Number {
+
+    public enum Phase {}
+}
+
+extension Complex.Number.Phase {
+
+    public typealias Value = Tagged<Complex.Number<Scalar>.Phase, Scalar>
+}
+
+extension Complex.Number.Polar where Scalar: BinaryFloatingPoint & Numeric.Transcendental {
+
+    @inlinable
+    public static func phase(of z: Complex.Number<Scalar>) -> Complex.Number<Scalar>.Phase.Value {
+        Complex.Number.Phase.Value(
+            _unchecked: Scalar._atan2(z.imaginary._value, z.real._value)
+        )
+    }
+
+    @inlinable
+    public var phase: Complex.Number<Scalar>.Phase.Value {
+        Self.phase(of: complex)
     }
 }

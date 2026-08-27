@@ -1,15 +1,18 @@
 import Complex
+import Numeric
+import Numeric_Standard_Library_Integration
+import Tagged
 import Testing
 
 @testable import Complex
 
 @Suite
-struct ComplexMathTests {
+struct `Complex.Number math` {
 
     let tolerance: Complex.Real<Double> = 1e-10
 
     @Test
-    func exp() {
+    func `exp`() {
 
         let z0 = Complex.Number<Double>.zero
         let exp0 = z0.math.exp()
@@ -32,7 +35,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func expMinusOne() {
+    func `exp minus one`() {
 
         let z0 = Complex.Number<Double>.zero
         let expm1Zero = z0.math.exp.minus.one()
@@ -44,7 +47,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func log() {
+    func `log`() {
 
         let z1 = Complex.Number<Double>.one
         let log1 = z1.math.log()
@@ -67,7 +70,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func logOnePlus() {
+    func `log one plus`() {
 
         let z0 = Complex.Number<Double>.zero
         let log1pZero = z0.math.log.one.plus()
@@ -79,7 +82,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func logExpInverse() {
+    func `log exp inverse`() {
 
         let z = Complex.Number(0.5, 0.3)
         let result = z.math.exp().math.log()
@@ -87,7 +90,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func cos() {
+    func `cos`() {
 
         let z0 = Complex.Number<Double>.zero
         let cos0 = z0.math.cos()
@@ -104,7 +107,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func sin() {
+    func `sin`() {
 
         let z0 = Complex.Number<Double>.zero
         let sin0 = z0.math.sin()
@@ -121,7 +124,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func tan() {
+    func `tan`() {
 
         let z0 = Complex.Number<Double>.zero
         let tan0 = z0.math.tan()
@@ -134,7 +137,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func pythagoreanIdentity() {
+    func `pythagorean identity`() {
 
         let z = Complex.Number(0.7, 0.3)
         let sinZ = z.math.sin()
@@ -144,7 +147,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func cosh() {
+    func `cosh`() {
 
         let z0 = Complex.Number<Double>.zero
         let cosh0 = z0.math.cosh()
@@ -158,7 +161,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func sinh() {
+    func `sinh`() {
 
         let z0 = Complex.Number<Double>.zero
         let sinh0 = z0.math.sinh()
@@ -172,7 +175,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func tanh() {
+    func `tanh`() {
 
         let z0 = Complex.Number<Double>.zero
         let tanh0 = z0.math.tanh()
@@ -180,7 +183,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func hyperbolicIdentity() {
+    func `hyperbolic identity`() {
 
         let z = Complex.Number(0.7, 0.3)
         let coshZ = z.math.cosh()
@@ -190,7 +193,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func acos() {
+    func `acos`() {
 
         let z1 = Complex.Number<Double>.one
         let acos1 = z1.math.acos()
@@ -202,7 +205,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func asin() {
+    func `asin`() {
 
         let z0 = Complex.Number<Double>.zero
         let asin0 = z0.math.asin()
@@ -214,7 +217,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func atan() {
+    func `atan`() {
 
         let z0 = Complex.Number<Double>.zero
         let atan0 = z0.math.atan()
@@ -222,7 +225,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func inverseIdentity() {
+    func `inverse identity`() {
 
         let z = Complex.Number(0.3, 0.2)
         let result = z.math.asin().math.sin()
@@ -230,7 +233,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func acosh() {
+    func `acosh`() {
 
         let z1 = Complex.Number<Double>.one
         let acosh1 = z1.math.acosh()
@@ -238,7 +241,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func asinh() {
+    func `asinh`() {
 
         let z0 = Complex.Number<Double>.zero
         let asinh0 = z0.math.asinh()
@@ -246,7 +249,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func atanh() {
+    func `atanh`() {
 
         let z0 = Complex.Number<Double>.zero
         let atanh0 = z0.math.atanh()
@@ -254,7 +257,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func sqrt() {
+    func `sqrt`() {
 
         let z1 = Complex.Number<Double>.one
         let sqrt1 = z1.math.sqrt()
@@ -278,7 +281,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func sqrtSquareIdentity() {
+    func `sqrt square identity`() {
 
         let z = Complex.Number(3.0, 4.0)
         let sqrtZ = z.math.sqrt()
@@ -287,7 +290,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func pow() {
+    func `pow`() {
 
         let z = Complex.Number(2.0, 3.0)
         let z0 = z.math.pow(0)
@@ -307,7 +310,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func root() {
+    func `root`() {
 
         let z8 = Complex.Number(8.0, 0.0)
         let cubeRoot = z8.math.root(3)

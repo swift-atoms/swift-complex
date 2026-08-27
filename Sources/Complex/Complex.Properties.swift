@@ -1,4 +1,4 @@
-public import Real
+public import Numeric
 
 extension Complex.Number where Scalar: BinaryFloatingPoint {
 
