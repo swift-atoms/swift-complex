@@ -1,4 +1,4 @@
-# Complex
+# Complex Primitives
 
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
@@ -41,7 +41,7 @@ The mixed-type arithmetic (`Real + Imaginary → Complex`, `Real × Imaginary �
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-molecules/swift-complex.git", branch: "main")
+    .package(url: "https://github.com/swift-atoms/swift-complex.git", branch: "main")
 ]
 ```
 
@@ -60,7 +60,7 @@ Requires Swift 6.3.1 and macOS 26 / iOS 26 / tvOS 26 / watchOS 26 / visionOS 26 
 
 ## Architecture
 
-One library product, `Complex`, exposing the `Complex` namespace.
+One library product, `Complex Primitives`, exposing the `Complex` namespace.
 
 | Type / accessor | Purpose |
 |-----------------|---------|
@@ -74,7 +74,7 @@ One library product, `Complex`, exposing the `Complex` namespace.
 | `z.equals` | Norm-based and componentwise approximate equality with explicit tolerances. |
 | `Numeric.Relaxed.sum` / `.product` / `.multiplyAdd` | Reassociation- and FMA-friendly arithmetic for `Double` and `Float`. |
 
-The numeric core builds on `swift-numeric` (real scalars, transcendental functions, relaxed arithmetic) and `swift-dimension` (the `Radian` argument type). It imports no Foundation.
+The numeric builds on `swift-numeric` (real scalars, transcendental functions, relaxed arithmetic) and `swift-dimension` (the `Radian` argument type). It imports no Foundation.
 
 ---
 

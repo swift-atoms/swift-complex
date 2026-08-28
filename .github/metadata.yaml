@@ -3,7 +3,7 @@
 # in the post-rollout 100% completeness sweep.
 description: "Complex numbers with distinct real and imaginary types so squaring the imaginary unit collapses to a real at compile time for Swift."
 topics:
-  - molecules
+  - primitives
   - complex
   - complex-numbers
   - numerics

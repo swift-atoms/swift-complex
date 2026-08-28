@@ -20,15 +20,15 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-molecules/swift-numeric.git",
+            url: "https://github.com/swift-atoms/swift-numeric.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-dimension.git",
+            url: "https://github.com/swift-atoms/swift-dimension.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-tagged.git",
+            url: "https://github.com/swift-atoms/swift-tagged.git",
             branch: "main"
         ),
     ],
@@ -44,7 +44,7 @@ let package = Package(
         .target(
             name: "Complex Test Support",
             dependencies: [
-                "Complex",
+                .target(name: "Complex"),
                 .product(
                     name: "Tagged Test Support",
                     package: "swift-tagged"
@@ -55,12 +55,12 @@ let package = Package(
         .testTarget(
             name: "Complex Tests",
             dependencies: [
-                "Complex",
+                .target(name: "Complex"),
                 .product(
                     name: "Tagged Standard Library Integration",
                     package: "swift-tagged"
                 ),
-                "Complex Test Support",
+                .target(name: "Complex Test Support"),
             ]
         ),
     ],
