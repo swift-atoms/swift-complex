@@ -11,7 +11,7 @@ Typed complex numbers for Swift — real and imaginary parts are distinct types,
 `Complex.Number<Scalar>` is a complex number `a + bi` built from a typed real part and a typed imaginary part. Because the two parts are separate types, the algebra is encoded in the type system — not just in the runtime value. `Imaginary × Imaginary` returns a `Real`, because `i² = -1`, and the compiler tracks that for you.
 
 ```swift
-import Complex_Primitives
+import Complex
 
 // Build complex numbers fluently; the type tracks real vs. imaginary parts.
 let z = 3.0.real + 4.0.i          // Complex.Number<Double>
@@ -41,7 +41,7 @@ The mixed-type arithmetic (`Real + Imaginary → Complex`, `Real × Imaginary �
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-primitives/swift-complex-primitives.git", branch: "main")
+    .package(url: "https://github.com/swift-atoms/swift-complex.git", branch: "main")
 ]
 ```
 
@@ -49,7 +49,7 @@ dependencies: [
 .target(
     name: "App",
     dependencies: [
-        .product(name: "Complex Primitives", package: "swift-complex-primitives"),
+        .product(name: "Complex", package: "swift-complex"),
     ]
 )
 ```
@@ -74,7 +74,7 @@ One library product, `Complex Primitives`, exposing the `Complex` namespace.
 | `z.equals` | Norm-based and componentwise approximate equality with explicit tolerances. |
 | `Numeric.Relaxed.sum` / `.product` / `.multiplyAdd` | Reassociation- and FMA-friendly arithmetic for `Double` and `Float`. |
 
-The numeric core builds on `swift-numeric-primitives` (real scalars, transcendental functions, relaxed arithmetic) and `swift-dimension-primitives` (the `Radian` argument type). It imports no Foundation.
+The numeric builds on `swift-numeric` (real scalars, transcendental functions, relaxed arithmetic) and `swift-dimension` (the `Radian` argument type). It imports no Foundation.
 
 ---
 

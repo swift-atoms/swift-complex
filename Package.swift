@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-complex-primitives",
+    name: "swift-complex",
     platforms: [
         .macOS(.v27),
         .iOS(.v27),
@@ -12,55 +12,55 @@ let package = Package(
         .visionOS(.v27),
     ],
     products: [
-        .library(name: "Complex Primitives", targets: ["Complex Primitives"]),
+        .library(name: "Complex", targets: ["Complex"]),
         .library(
-            name: "Complex Primitives Test Support",
-            targets: ["Complex Primitives Test Support"]
+            name: "Complex Test Support",
+            targets: ["Complex Test Support"]
         ),
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-primitives/swift-numeric-primitives.git",
+            url: "https://github.com/swift-atoms/swift-numeric.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-dimension-primitives.git",
+            url: "https://github.com/swift-atoms/swift-dimension.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-tagged-primitives.git",
+            url: "https://github.com/swift-atoms/swift-tagged.git",
             branch: "main"
         ),
     ],
     targets: [
         .target(
-            name: "Complex Primitives",
+            name: "Complex",
             dependencies: [
-                .product(name: "Real Primitives", package: "swift-numeric-primitives"),
-                .product(name: "Numeric Relaxed Primitives", package: "swift-numeric-primitives"),
-                .product(name: "Dimension Primitives", package: "swift-dimension-primitives"),
+                .product(name: "Real", package: "swift-numeric"),
+                .product(name: "Numeric Relaxed", package: "swift-numeric"),
+                .product(name: "Dimension", package: "swift-dimension"),
             ]
         ),
         .target(
-            name: "Complex Primitives Test Support",
+            name: "Complex Test Support",
             dependencies: [
-                "Complex Primitives",
+                .target(name: "Complex"),
                 .product(
-                    name: "Tagged Primitives Test Support",
-                    package: "swift-tagged-primitives"
+                    name: "Tagged Test Support",
+                    package: "swift-tagged"
                 ),
             ],
             path: "Tests/Support"
         ),
         .testTarget(
-            name: "Complex Primitives Tests",
+            name: "Complex Tests",
             dependencies: [
-                "Complex Primitives",
+                .target(name: "Complex"),
                 .product(
-                    name: "Tagged Primitives Standard Library Integration",
-                    package: "swift-tagged-primitives"
+                    name: "Tagged Standard Library Integration",
+                    package: "swift-tagged"
                 ),
-                "Complex Primitives Test Support",
+                .target(name: "Complex Test Support"),
             ]
         ),
     ],
