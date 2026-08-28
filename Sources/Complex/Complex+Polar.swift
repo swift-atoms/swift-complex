@@ -1,5 +1,4 @@
-public import Numeric
-public import Tagged
+public import Dimension
 
 extension Complex.Number {
 
@@ -21,6 +20,16 @@ extension Complex.Number.Polar where Scalar: BinaryFloatingPoint & Numeric.Trans
     }
 
     @inlinable
+    public static func phase(of z: Complex.Number<Scalar>) -> Radian<Scalar> {
+        Radian(_unchecked: Scalar._atan2(z.imaginary._value, z.real._value))
+    }
+
+    @inlinable
+    public var phase: Radian<Scalar> {
+        Self.phase(of: complex)
+    }
+
+    @inlinable
     public static func squared(of z: Complex.Number<Scalar>) -> Scalar {
         z.real._value * z.real._value + z.imaginary._value * z.imaginary._value
     }
@@ -31,27 +40,15 @@ extension Complex.Number.Polar where Scalar: BinaryFloatingPoint & Numeric.Trans
     }
 }
 
-extension Complex.Number {
-
-    public enum Phase {}
-}
-
-extension Complex.Number.Phase {
-
-    public typealias Value = Tagged<Complex.Number<Scalar>.Phase, Scalar>
-}
-
-extension Complex.Number.Polar where Scalar: BinaryFloatingPoint & Numeric.Transcendental {
+extension Complex.Number where Scalar: BinaryFloatingPoint & Numeric.Transcendental {
 
     @inlinable
-    public static func phase(of z: Complex.Number<Scalar>) -> Complex.Number<Scalar>.Phase.Value {
-        Complex.Number.Phase.Value(
-            _unchecked: Scalar._atan2(z.imaginary._value, z.real._value)
+    public init(length: Complex.Number<Scalar>.Modulus.Value, phase: Radian<Scalar>) {
+        let r = length.underlying
+        let theta = phase.underlying
+        self.init(
+            r * Scalar._cos(theta),
+            r * Scalar._sin(theta)
         )
-    }
-
-    @inlinable
-    public var phase: Complex.Number<Scalar>.Phase.Value {
-        Self.phase(of: complex)
     }
 }

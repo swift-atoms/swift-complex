@@ -1,5 +1,3 @@
-public import Numeric
-
 extension Complex.Number.Math {
 
     public struct Cos {

@@ -1,5 +1,3 @@
-public import Tagged
-
 extension Complex.Number {
 
     public enum Modulus {}

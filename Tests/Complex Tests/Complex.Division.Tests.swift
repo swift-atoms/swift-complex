@@ -1,18 +1,14 @@
-import Complex
-import Numeric
-import Numeric_Standard_Library_Integration
-import Tagged
 import Testing
 
 @testable import Complex
 
 @Suite
-struct `Complex.Number division` {
+struct ComplexDivisionTests {
 
     let tolerance: Complex.Real<Double> = 1e-10
 
     @Test
-    func `basic division`() {
+    func basicDivision() {
         let z = Complex.Number(3.0, 4.0)
         let w = Complex.Number(1.0, 2.0)
         let result = z / w
@@ -22,14 +18,14 @@ struct `Complex.Number division` {
     }
 
     @Test
-    func `division by one`() {
+    func divisionByOne() {
         let z = Complex.Number(3.0, 4.0)
         let result = z / Complex.Number<Double>.one
         #expect(result.equals.approximate(z, tolerance: tolerance))
     }
 
     @Test
-    func `division by i`() {
+    func divisionByI() {
 
         let z = Complex.Number(3.0, 4.0)
         let result = z / Complex.Number<Double>.i
@@ -39,20 +35,20 @@ struct `Complex.Number division` {
     }
 
     @Test
-    func `division by zero`() {
+    func divisionByZero() {
         let z = Complex.Number(1.0, 2.0)
         let result = z / Complex.Number<Double>.zero
         #expect(!result.isFinite)
     }
 
     @Test
-    func `zero divided by non zero`() {
+    func zeroDividedByNonZero() {
         let result = Complex.Number<Double>.zero / Complex.Number(1.0, 2.0)
         #expect(result.equals.approximate(Complex.Number<Double>.zero, tolerance: tolerance))
     }
 
     @Test
-    func `division with large denominator`() {
+    func divisionWithLargeDenominator() {
 
         let large = Double.greatestFiniteMagnitude / 4
         let z = Complex.Number(large, large)
@@ -63,7 +59,7 @@ struct `Complex.Number division` {
     }
 
     @Test
-    func `division with small denominator`() {
+    func divisionWithSmallDenominator() {
 
         let small = Double.leastNormalMagnitude * 4
         let z = Complex.Number(1.0, 1.0)
@@ -75,7 +71,7 @@ struct `Complex.Number division` {
     }
 
     @Test
-    func `division preserves scale`() {
+    func divisionPreservesScale() {
 
         let z = Complex.Number(3.0, 4.0)
         let w = Complex.Number(1.0, 2.0)
@@ -88,7 +84,7 @@ struct `Complex.Number division` {
     }
 
     @Test
-    func `multiplication division inverse`() {
+    func multiplicationDivisionInverse() {
         let z = Complex.Number(3.0, 4.0)
         let w = Complex.Number(1.0, 2.0)
 
@@ -98,7 +94,7 @@ struct `Complex.Number division` {
     }
 
     @Test
-    func `reciprocal consistency`() {
+    func reciprocalConsistency() {
         let w = Complex.Number(1.0, 2.0)
 
         let recip1 = Complex.Number<Double>.one / w
