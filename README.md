@@ -74,7 +74,7 @@ One library product, `Complex Primitives`, exposing the `Complex` namespace.
 | `z.equals` | Norm-based and componentwise approximate equality with explicit tolerances. |
 | `Numeric.Relaxed.sum` / `.product` / `.multiplyAdd` | Reassociation- and FMA-friendly arithmetic for `Double` and `Float`. |
 
-The numeric builds on `swift-numeric` (real scalars, transcendental functions, relaxed arithmetic) and `swift-dimension` (the `Radian` argument type). It imports no Foundation.
+The numeric builds on `swift-numeric` (real scalars, transcendental functions, relaxed arithmetic) and `swift-angle` (the `Radian` argument type). It imports no Foundation.
 
 ---
 
