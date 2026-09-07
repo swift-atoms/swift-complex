@@ -1,3 +1,5 @@
+public import Tolerance
+
 extension Complex.Real {
 
     public struct Equals {
@@ -26,7 +28,7 @@ extension Complex.Real.Equals where Scalar: BinaryFloatingPoint {
     @inlinable
     public func approximate(_ other: Complex.Real<Scalar>, tolerance: Complex.Real<Scalar>) -> Bool
     {
-        abs(real._value - other._value) <= tolerance._value
+        (try? Tolerance<Scalar>(absolute: tolerance._value))?.contains(real._value, other._value) ?? false
     }
 
     @inlinable
@@ -35,8 +37,7 @@ extension Complex.Real.Equals where Scalar: BinaryFloatingPoint {
         absolute: Complex.Real<Scalar>,
         relative: Complex.Real<Scalar> = .zero
     ) -> Bool {
-        let diff = abs(real._value - other._value)
-        let scale = max(abs(real._value), abs(other._value))
-        return diff <= absolute._value + relative._value * scale
+        (try? Tolerance<Scalar>(absolute: absolute._value, relative: relative._value))?
+            .contains(real._value, other._value) ?? false
     }
 }

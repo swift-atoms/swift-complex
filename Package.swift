@@ -18,6 +18,7 @@ let package = Package(
         .library(name: "Complex Test Support", targets: ["Complex Test Support"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/swift-atoms/swift-tolerance.git", branch: "main"),
         .package(
             url: "https://github.com/swift-atoms/swift-numeric.git",
             branch: "main"
@@ -35,6 +36,7 @@ let package = Package(
         .target(
             name: "Complex",
             dependencies: [
+                .product(name: "Tolerance", package: "swift-tolerance"),
                 .product(name: "Numeric", package: "swift-numeric"),
                 .product(name: "Angle", package: "swift-angle"),
                 .product(name: "Tagged", package: "swift-tagged"),

@@ -3,10 +3,10 @@ import Testing
 @testable import Complex
 
 @Suite
-struct ComplexPropertiesTests {
+struct `Complex values preserve their algebraic properties` {
 
     @Test
-    func isFinite() {
+    func `A complex value is finite when both components are finite`() throws {
         let finite = Complex.Number(1.0, 2.0)
         #expect(finite.isFinite)
 
@@ -21,7 +21,7 @@ struct ComplexPropertiesTests {
     }
 
     @Test
-    func isZero() {
+    func `A complex value is zero when both components are zero`() throws {
         let zero = Complex.Number<Double>.zero
         #expect(zero.isZero)
 
@@ -30,7 +30,7 @@ struct ComplexPropertiesTests {
     }
 
     @Test
-    func isNormal() {
+    func `Normality accounts for both components`() throws {
         let normal = Complex.Number(1.0, 2.0)
         #expect(normal.isNormal)
 
@@ -42,7 +42,7 @@ struct ComplexPropertiesTests {
     }
 
     @Test
-    func isSubnormal() {
+    func `Subnormal components are classified correctly`() throws {
         let subnormal = Complex.Number(Double.leastNonzeroMagnitude, 0.0)
         #expect(subnormal.isSubnormal)
 
@@ -54,46 +54,46 @@ struct ComplexPropertiesTests {
     }
 
     @Test
-    func normalized() {
+    func `Normalization preserves phase and produces unit magnitude`() throws {
         let z = Complex.Number(3.0, 4.0)
         let n = z.normalized!
 
         #expect(n.magnitude().equals.approximate(1.0, tolerance: 1e-10))
 
         #expect(
-            n.polar.phase.underlying.equals.approximate(
-                z.polar.phase.underlying,
-                tolerance: 1e-10
+            try Tolerance<Double>(absolute: 1e-10).contains(
+                n.polar.phase.underlying,
+                z.polar.phase.underlying
             )
         )
     }
 
     @Test
-    func normalizedZero() {
+    func `Zero has no normalized direction`() throws {
         let zero = Complex.Number<Double>.zero
         #expect(zero.normalized == nil)
     }
 
     @Test
-    func normalizedInfinity() {
+    func `Infinity has no normalized direction`() throws {
         let inf = Complex.Number<Double>.infinity
         #expect(inf.normalized == nil)
     }
 
     @Test
-    func magnitude() {
+    func `Magnitude is the Euclidean length`() throws {
         let z = Complex.Number(3.0, 4.0)
         #expect(z.magnitude().equals.approximate(5.0, tolerance: 1e-10))
     }
 
     @Test
-    func magnitudeSquared() {
+    func `Squared magnitude is the sum of squared components`() throws {
         let z = Complex.Number(3.0, 4.0)
         #expect(z.magnitude.squared.equals.approximate(25.0, tolerance: 1e-10))
     }
 
     @Test
-    func description() {
+    func `Descriptions include the real and imaginary components`() throws {
         let z = Complex.Number(3.0, 4.0)
         #expect(z.description == "(3.0, 4.0)")
 
@@ -102,7 +102,7 @@ struct ComplexPropertiesTests {
     }
 
     @Test
-    func approximateEquality() {
+    func `Absolute closeness respects its allowance`() throws {
         let z = Complex.Number(1.0, 2.0)
         let w = Complex.Number(1.0 + 1e-12, 2.0 + 1e-12)
 
@@ -111,7 +111,7 @@ struct ComplexPropertiesTests {
     }
 
     @Test
-    func approximateEqualityRelative() {
+    func `Relative closeness scales with magnitude`() throws {
         let z = Complex.Number(1000.0, 2000.0)
         let w = Complex.Number(1000.1, 2000.1)
 
@@ -120,7 +120,7 @@ struct ComplexPropertiesTests {
     }
 
     @Test
-    func componentwiseApproximateEquality() {
+    func `Componentwise closeness checks both components`() throws {
         let z = Complex.Number(1.0, 2.0)
         let w = Complex.Number(1.0 + 1e-12, 2.0 + 1e-12)
 

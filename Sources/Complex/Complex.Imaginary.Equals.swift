@@ -1,3 +1,5 @@
+public import Tolerance
+
 extension Complex.Imaginary {
 
     public struct Equals {
@@ -28,7 +30,7 @@ extension Complex.Imaginary.Equals where Scalar: BinaryFloatingPoint {
         _ other: Complex.Imaginary<Scalar>,
         tolerance: Complex.Real<Scalar>
     ) -> Bool {
-        abs(imaginary._value - other._value) <= tolerance._value
+        (try? Tolerance<Scalar>(absolute: tolerance._value))?.contains(imaginary._value, other._value) ?? false
     }
 
     @inlinable
@@ -37,8 +39,7 @@ extension Complex.Imaginary.Equals where Scalar: BinaryFloatingPoint {
         absolute: Complex.Real<Scalar>,
         relative: Complex.Real<Scalar> = .zero
     ) -> Bool {
-        let diff = abs(imaginary._value - other._value)
-        let scale = max(abs(imaginary._value), abs(other._value))
-        return diff <= absolute._value + relative._value * scale
+        (try? Tolerance<Scalar>(absolute: absolute._value, relative: relative._value))?
+            .contains(imaginary._value, other._value) ?? false
     }
 }

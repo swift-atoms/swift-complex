@@ -1,3 +1,5 @@
+public import Tolerance
+
 extension Complex.Number {
 
     public struct Equals {
@@ -73,7 +75,8 @@ extension Complex.Number.Equals.Componentwise where Scalar: BinaryFloatingPoint 
         _ other: Complex.Number<Scalar>,
         tolerance: Complex.Real<Scalar>
     ) -> Bool {
-        abs(complex.real._value - other.real._value) <= tolerance._value
-            && abs(complex.imaginary._value - other.imaginary._value) <= tolerance._value
+        guard let allowance = try? Tolerance<Scalar>(absolute: tolerance._value) else { return false }
+        return allowance.contains(complex.real._value, other.real._value)
+            && allowance.contains(complex.imaginary._value, other.imaginary._value)
     }
 }

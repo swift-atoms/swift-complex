@@ -4,48 +4,48 @@ import Testing
 @testable import Complex
 
 @Suite
-struct ComplexPolarTests {
+struct `Complex polar coordinates describe length and phase` {
 
     @Test
-    func length() {
+    func `Polar length is the Euclidean modulus`() throws {
 
         let z = Complex.Number(3.0, 4.0)
         let len = z.polar.length
-        #expect(len.underlying.equals.approximate(5.0, tolerance: 1e-10))
+        #expect(try Tolerance<Double>(absolute: 1e-10).contains(len.underlying, 5.0))
     }
 
     @Test
-    func lengthStatic() {
+    func `Static polar length is the Euclidean modulus`() throws {
         let z = Complex.Number(3.0, 4.0)
         let len = Complex.Number.Polar.length(of: z)
-        #expect(len.underlying.equals.approximate(5.0, tolerance: 1e-10))
+        #expect(try Tolerance<Double>(absolute: 1e-10).contains(len.underlying, 5.0))
     }
 
     @Test
-    func phase() {
+    func `Polar phase identifies the direction`() throws {
 
         let z1 = Complex.Number(1.0, 1.0)
         let phase1 = z1.polar.phase
-        #expect(phase1.underlying.equals.approximate(Double.pi / 4, tolerance: 1e-10))
+        #expect(try Tolerance<Double>(absolute: 1e-10).contains(phase1.underlying, Double.pi / 4))
 
         let z2 = Complex.Number(1.0, 0.0)
         let phase2 = z2.polar.phase
-        #expect(phase2.underlying.equals.approximate(0.0, tolerance: 1e-15))
+        #expect(try Tolerance<Double>(absolute: 1e-15).contains(phase2.underlying, 0.0))
 
         let z3 = Complex.Number(0.0, 1.0)
         let phase3 = z3.polar.phase
-        #expect(phase3.underlying.equals.approximate(Double.pi / 2, tolerance: 1e-10))
+        #expect(try Tolerance<Double>(absolute: 1e-10).contains(phase3.underlying, Double.pi / 2))
     }
 
     @Test
-    func phaseStatic() {
+    func `Static polar phase identifies the direction`() throws {
         let z = Complex.Number(1.0, 1.0)
         let phase = Complex.Number.Polar.phase(of: z)
-        #expect(phase.underlying.equals.approximate(Double.pi / 4, tolerance: 1e-10))
+        #expect(try Tolerance<Double>(absolute: 1e-10).contains(phase.underlying, Double.pi / 4))
     }
 
     @Test
-    func polarConstruction() {
+    func `Polar construction produces Cartesian components`() throws {
         let length = Complex.Number<Double>.Modulus.Value(5.0)
         let phase: Radian<Double> = .pi.quarter
 
@@ -57,7 +57,7 @@ struct ComplexPolarTests {
     }
 
     @Test
-    func polarRoundTrip() {
+    func `Polar conversion round trips the original value`() throws {
         let original = Complex.Number(3.0, 4.0)
         let length = original.polar.length
         let phase = original.polar.phase
@@ -68,21 +68,21 @@ struct ComplexPolarTests {
     }
 
     @Test
-    func squaredLength() {
+    func `Squared polar length avoids a square root`() throws {
         let z = Complex.Number(3.0, 4.0)
         let sq = z.polar.squared
-        #expect(sq.equals.approximate(25.0, tolerance: 1e-10))
+        #expect(try Tolerance<Double>(absolute: 1e-10).contains(sq, 25.0))
     }
 
     @Test
-    func squaredLengthStatic() {
+    func `Static squared length avoids a square root`() throws {
         let z = Complex.Number(3.0, 4.0)
         let sq = Complex.Number.Polar.squared(of: z)
-        #expect(sq.equals.approximate(25.0, tolerance: 1e-10))
+        #expect(try Tolerance<Double>(absolute: 1e-10).contains(sq, 25.0))
     }
 
     @Test
-    func modulusArithmetic() {
+    func `Modulus values support scalar arithmetic`() throws {
         let m1 = Complex.Number<Double>.Modulus.Value(3.0)
         let m2 = Complex.Number<Double>.Modulus.Value(4.0)
 
@@ -96,6 +96,6 @@ struct ComplexPolarTests {
         #expect(product == 12.0)
 
         let quotient = m2 / m1
-        #expect(quotient.underlying.equals.approximate(4.0 / 3.0, tolerance: 1e-10))
+        #expect(try Tolerance<Double>(absolute: 1e-10).contains(quotient.underlying, 4.0 / 3.0))
     }
 }
