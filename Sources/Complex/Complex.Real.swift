@@ -17,32 +17,9 @@ extension Complex {
     }
 }
 
-extension Complex.Real: Equatable where Scalar: Equatable {}
-extension Complex.Real: Hashable where Scalar: Hashable {}
+extension Complex.Real: Swift.Equatable where Scalar: Swift.Equatable {}
 
-extension Complex.Real: Comparable where Scalar: Comparable {
-
-    @inlinable
-    public static func < (lhs: Self, rhs: Self) -> Bool {
-        lhs.value < rhs.value
-    }
-}
-
-extension Complex.Real: ExpressibleByIntegerLiteral where Scalar: ExpressibleByIntegerLiteral {
-
-    @inlinable
-    public init(integerLiteral value: Scalar.IntegerLiteralType) {
-        self.init(Scalar(integerLiteral: value))
-    }
-}
-
-extension Complex.Real: ExpressibleByFloatLiteral where Scalar: ExpressibleByFloatLiteral {
-
-    @inlinable
-    public init(floatLiteral value: Scalar.FloatLiteralType) {
-        self.init(Scalar(floatLiteral: value))
-    }
-}
+extension Complex.Real: Swift.Hashable where Scalar: Swift.Hashable {}
 
 extension Complex.Real where Scalar: BinaryFloatingPoint {
 
@@ -78,34 +55,4 @@ extension Complex.Real where Scalar: BinaryFloatingPoint {
 
     @inlinable
     public var abs: Self { Self(Swift.abs(_value)) }
-}
-
-extension Complex.Real: CustomStringConvertible where Scalar: CustomStringConvertible {
-
-    @inlinable
-    public var description: String { _value.description }
-}
-
-extension Complex.Real: CustomDebugStringConvertible where Scalar: CustomDebugStringConvertible {
-
-    @inlinable
-    public var debugDescription: String { "Real(\(String(reflecting: _value)))" }
-}
-
-extension Double {
-
-    @inlinable
-    public var real: Complex.Real<Double> { .init(self) }
-
-    @inlinable
-    public var i: Complex.Imaginary<Double> { .init(self) }
-}
-
-extension Float {
-
-    @inlinable
-    public var real: Complex.Real<Float> { .init(self) }
-
-    @inlinable
-    public var i: Complex.Imaginary<Float> { .init(self) }
 }

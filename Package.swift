@@ -13,8 +13,8 @@ let package = Package(
     ],
     products: [
         .library(name: "Complex", targets: ["Complex"]),
-        .library(name: "Complex Standard Library Integration", targets: ["Complex Standard Library Integration"]),
-        .library(name: "Complex Foundation Library Integration", targets: ["Complex Foundation Library Integration"]),
+
+        .library(name: "Complex Foundation Integration", targets: ["Complex Foundation Integration"]),
         .library(name: "Complex Test Support", targets: ["Complex Test Support"]),
     ],
     dependencies: [
@@ -41,20 +41,13 @@ let package = Package(
             ],
             path: "Sources/Complex"
         ),
+        
         .target(
-            name: "Complex Standard Library Integration",
+            name: "Complex Foundation Integration",
             dependencies: [
                 .target(name: "Complex"),
             ],
-            path: "Sources/Complex Standard Library Integration"
-        ),
-        .target(
-            name: "Complex Foundation Library Integration",
-            dependencies: [
-                .target(name: "Complex"),
-                .target(name: "Complex Standard Library Integration"),
-            ],
-            path: "Sources/Complex Foundation Library Integration"
+            path: "Sources/Complex Foundation Integration"
         ),
         .target(
             name: "Complex Test Support",
@@ -68,10 +61,9 @@ let package = Package(
             name: "Complex Tests",
             dependencies: [
                 .target(name: "Complex"),
-                .product(name: "Tagged Standard Library Integration", package: "swift-tagged"),
+                .product(name: "Tagged", package: "swift-tagged"),
                 .target(name: "Complex Test Support"),
-                .target(name: "Complex Standard Library Integration"),
-                .target(name: "Complex Foundation Library Integration"),
+                .target(name: "Complex Foundation Integration"),
             ],
             path: "Tests/Complex Tests"
         ),

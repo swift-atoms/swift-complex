@@ -11,7 +11,7 @@ extension Complex.Real {
     }
 }
 
-extension Complex.Real.Equals: Sendable where Scalar: Sendable {}
+extension Complex.Real.Equals: Swift.Sendable where Scalar: Swift.Sendable {}
 
 extension Complex.Real {
 

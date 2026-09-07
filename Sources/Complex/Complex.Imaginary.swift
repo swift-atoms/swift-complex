@@ -17,24 +17,9 @@ extension Complex {
     }
 }
 
-extension Complex.Imaginary: Equatable where Scalar: Equatable {}
-extension Complex.Imaginary: Hashable where Scalar: Hashable {}
+extension Complex.Imaginary: Swift.Equatable where Scalar: Swift.Equatable {}
 
-extension Complex.Imaginary: ExpressibleByIntegerLiteral where Scalar: ExpressibleByIntegerLiteral {
-
-    @inlinable
-    public init(integerLiteral value: Scalar.IntegerLiteralType) {
-        self.init(Scalar(integerLiteral: value))
-    }
-}
-
-extension Complex.Imaginary: ExpressibleByFloatLiteral where Scalar: ExpressibleByFloatLiteral {
-
-    @inlinable
-    public init(floatLiteral value: Scalar.FloatLiteralType) {
-        self.init(Scalar(floatLiteral: value))
-    }
-}
+extension Complex.Imaginary: Swift.Hashable where Scalar: Swift.Hashable {}
 
 extension Complex.Imaginary where Scalar: BinaryFloatingPoint {
 
@@ -70,17 +55,4 @@ extension Complex.Imaginary where Scalar: BinaryFloatingPoint {
 
     @inlinable
     public var abs: Complex.Real<Scalar> { Complex.Real(Swift.abs(_value)) }
-}
-
-extension Complex.Imaginary: CustomStringConvertible where Scalar: CustomStringConvertible {
-
-    @inlinable
-    public var description: String { "\(_value.description)i" }
-}
-
-extension Complex.Imaginary: CustomDebugStringConvertible
-where Scalar: CustomDebugStringConvertible {
-
-    @inlinable
-    public var debugDescription: String { "Imaginary(\(String(reflecting: _value)))" }
 }

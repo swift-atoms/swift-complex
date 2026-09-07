@@ -1,4 +1,4 @@
-extension Complex.Number: Equatable where Scalar: Equatable {
+extension Complex.Number: Swift.Equatable where Scalar: Swift.Equatable {
 
     @inlinable
     public static func == (lhs: Self, rhs: Self) -> Bool {

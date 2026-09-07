@@ -11,7 +11,7 @@ extension Complex.Number.Math {
     }
 }
 
-extension Complex.Number.Math.Cos: Sendable where Scalar: Sendable {}
+extension Complex.Number.Math.Cos: Swift.Sendable where Scalar: Swift.Sendable {}
 
 extension Complex.Number.Math {
 
@@ -34,7 +34,7 @@ extension Complex.Number.Math.Cos {
     }
 }
 
-extension Complex.Number.Math.Cos.Minus: Sendable where Scalar: Sendable {}
+extension Complex.Number.Math.Cos.Minus: Swift.Sendable where Scalar: Swift.Sendable {}
 
 extension Complex.Number.Math.Cos {
 
