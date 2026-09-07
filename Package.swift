@@ -18,11 +18,11 @@ let package = Package(
         .library(name: "Complex Test Support", targets: ["Complex Test Support"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/swift-atoms/swift-multiplication.git", branch: "main"),
+        .package(url: "https://github.com/swift-atoms/swift-addition.git", branch: "main"),
+        .package(url: "https://github.com/swift-atoms/swift-exponential.git", branch: "main"),
+        .package(url: "https://github.com/swift-atoms/swift-trigonometry.git", branch: "main"),
         .package(url: "https://github.com/swift-atoms/swift-tolerance.git", branch: "main"),
-        .package(
-            url: "https://github.com/swift-atoms/swift-numeric.git",
-            branch: "main"
-        ),
         .package(
             url: "https://github.com/swift-atoms/swift-angle.git",
             branch: "main"
@@ -36,8 +36,11 @@ let package = Package(
         .target(
             name: "Complex",
             dependencies: [
+                .product(name: "Multiplication", package: "swift-multiplication"),
+                .product(name: "Addition", package: "swift-addition"),
+                .product(name: "Exponential", package: "swift-exponential"),
+                .product(name: "Trigonometry", package: "swift-trigonometry"),
                 .product(name: "Tolerance", package: "swift-tolerance"),
-                .product(name: "Numeric", package: "swift-numeric"),
                 .product(name: "Angle", package: "swift-angle"),
                 .product(name: "Tagged", package: "swift-tagged"),
             ],

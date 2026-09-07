@@ -21,11 +21,11 @@ extension Complex.Number {
     }
 }
 
-extension Complex.Number.Magnitude where Scalar: BinaryFloatingPoint & Numeric.Transcendental {
+extension Complex.Number.Magnitude where Scalar: BinaryFloatingPoint {
 
     @inlinable
     public func callAsFunction() -> Complex.Real<Scalar> {
-        Complex.Real(Scalar._hypot(complex.real._value, complex.imaginary._value))
+        Complex.Real(Complex.Number<Scalar>._hypot(complex.real._value, complex.imaginary._value))
     }
 
     @inlinable

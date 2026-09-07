@@ -3,12 +3,12 @@ import Testing
 @testable import Complex
 
 @Suite
-struct ComplexMathTests {
+struct `Complex functions obey their numerical identities` {
 
     let tolerance: Complex.Real<Double> = 1e-10
 
     @Test
-    func exp() {
+    func `Exponentiation follows the real axis and Euler identity`() {
 
         let z0 = Complex.Number<Double>.zero
         let exp0 = z0.math.exp()
@@ -16,7 +16,7 @@ struct ComplexMathTests {
 
         let z1 = Complex.Number<Double>(1.0)
         let exp1 = z1.math.exp()
-        #expect(exp1.real.equals.approximate(Double.math.exp(1).real, tolerance: tolerance))
+        #expect(exp1.real.equals.approximate(Double.exp(1).real, tolerance: tolerance))
         #expect(exp1.imaginary.equals.approximate(0.0, tolerance: tolerance))
 
         let zPi = Complex.Number(0.0, Double.pi)
@@ -31,7 +31,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func expMinusOne() {
+    func `Exponentiation minus one preserves small differences`() {
 
         let z0 = Complex.Number<Double>.zero
         let expm1Zero = z0.math.exp.minus.one()
@@ -43,13 +43,13 @@ struct ComplexMathTests {
     }
 
     @Test
-    func log() {
+    func `Logarithms select the principal argument`() {
 
         let z1 = Complex.Number<Double>.one
         let log1 = z1.math.log()
         #expect(log1.equals.approximate(.zero, tolerance: tolerance))
 
-        let zE = Complex.Number(Double.math.exp(1), 0.0)
+        let zE = Complex.Number(Double.exp(1), 0.0)
         let logE = zE.math.log()
         #expect(logE.real.equals.approximate(1.0, tolerance: tolerance))
         #expect(logE.imaginary.equals.approximate(0.0, tolerance: tolerance))
@@ -66,7 +66,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func logOnePlus() {
+    func `Logarithms near one preserve small differences`() {
 
         let z0 = Complex.Number<Double>.zero
         let log1pZero = z0.math.log.one.plus()
@@ -78,7 +78,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func logExpInverse() {
+    func `Logarithms invert exponentials within the principal branch`() {
 
         let z = Complex.Number(0.5, 0.3)
         let result = z.math.exp().math.log()
@@ -86,7 +86,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func cos() {
+    func `Cosine has the expected values on the real axis`() {
 
         let z0 = Complex.Number<Double>.zero
         let cos0 = z0.math.cos()
@@ -103,7 +103,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func sin() {
+    func `Sine has the expected values on the real axis`() {
 
         let z0 = Complex.Number<Double>.zero
         let sin0 = z0.math.sin()
@@ -120,7 +120,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func tan() {
+    func `Tangent is the quotient of sine and cosine`() {
 
         let z0 = Complex.Number<Double>.zero
         let tan0 = z0.math.tan()
@@ -133,7 +133,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func pythagoreanIdentity() {
+    func `Sine squared plus cosine squared is one`() {
 
         let z = Complex.Number(0.7, 0.3)
         let sinZ = z.math.sin()
@@ -143,7 +143,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func cosh() {
+    func `Hyperbolic cosine agrees with its exponential identity`() {
 
         let z0 = Complex.Number<Double>.zero
         let cosh0 = z0.math.cosh()
@@ -152,12 +152,12 @@ struct ComplexMathTests {
         let x = 1.5
         let zX = Complex.Number(x, 0.0)
         let coshX = zX.math.cosh()
-        let expected = (Double.math.exp(x) + Double.math.exp(-x)) / 2
+        let expected = (Double.exp(x) + Double.exp(-x)) / 2
         #expect(coshX.real.equals.approximate(expected.real, tolerance: tolerance))
     }
 
     @Test
-    func sinh() {
+    func `Hyperbolic sine agrees with its exponential identity`() {
 
         let z0 = Complex.Number<Double>.zero
         let sinh0 = z0.math.sinh()
@@ -166,12 +166,12 @@ struct ComplexMathTests {
         let x = 1.5
         let zX = Complex.Number(x, 0.0)
         let sinhX = zX.math.sinh()
-        let expected = (Double.math.exp(x) - Double.math.exp(-x)) / 2
+        let expected = (Double.exp(x) - Double.exp(-x)) / 2
         #expect(sinhX.real.equals.approximate(expected.real, tolerance: tolerance))
     }
 
     @Test
-    func tanh() {
+    func `Hyperbolic tangent has the expected real values`() {
 
         let z0 = Complex.Number<Double>.zero
         let tanh0 = z0.math.tanh()
@@ -179,7 +179,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func hyperbolicIdentity() {
+    func `Hyperbolic cosine squared minus sine squared is one`() {
 
         let z = Complex.Number(0.7, 0.3)
         let coshZ = z.math.cosh()
@@ -189,7 +189,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func acos() {
+    func `Inverse cosine selects the principal value`() {
 
         let z1 = Complex.Number<Double>.one
         let acos1 = z1.math.acos()
@@ -201,7 +201,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func asin() {
+    func `Inverse sine selects the principal value`() {
 
         let z0 = Complex.Number<Double>.zero
         let asin0 = z0.math.asin()
@@ -213,7 +213,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func atan() {
+    func `Inverse tangent selects the principal value`() {
 
         let z0 = Complex.Number<Double>.zero
         let atan0 = z0.math.atan()
@@ -221,7 +221,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func inverseIdentity() {
+    func `Sine inverts the principal inverse sine`() {
 
         let z = Complex.Number(0.3, 0.2)
         let result = z.math.asin().math.sin()
@@ -229,7 +229,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func acosh() {
+    func `Inverse hyperbolic cosine selects the principal value`() {
 
         let z1 = Complex.Number<Double>.one
         let acosh1 = z1.math.acosh()
@@ -237,7 +237,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func asinh() {
+    func `Inverse hyperbolic sine selects the principal value`() {
 
         let z0 = Complex.Number<Double>.zero
         let asinh0 = z0.math.asinh()
@@ -245,7 +245,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func atanh() {
+    func `Inverse hyperbolic tangent selects the principal value`() {
 
         let z0 = Complex.Number<Double>.zero
         let atanh0 = z0.math.atanh()
@@ -253,7 +253,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func sqrt() {
+    func `Square roots select the principal branch`() {
 
         let z1 = Complex.Number<Double>.one
         let sqrt1 = z1.math.sqrt()
@@ -271,13 +271,13 @@ struct ComplexMathTests {
 
         let zI = Complex.Number<Double>.i
         let sqrtI = zI.math.sqrt()
-        let expected: Complex.Real<Double> = (1.0 / Double.math.sqrt(2)).real
+        let expected: Complex.Real<Double> = (1.0 / Double(2).squareRoot()).real
         #expect(sqrtI.real.equals.approximate(expected, tolerance: tolerance))
         #expect(sqrtI.imaginary.equals.approximate(expected.value.i, tolerance: tolerance))
     }
 
     @Test
-    func sqrtSquareIdentity() {
+    func `Squaring the principal root recovers the input`() {
 
         let z = Complex.Number(3.0, 4.0)
         let sqrtZ = z.math.sqrt()
@@ -286,7 +286,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func pow() {
+    func `Integer powers agree with multiplication`() {
 
         let z = Complex.Number(2.0, 3.0)
         let z0 = z.math.pow(0)
@@ -306,7 +306,7 @@ struct ComplexMathTests {
     }
 
     @Test
-    func root() {
+    func `Principal roots agree with known exact values`() {
 
         let z8 = Complex.Number(8.0, 0.0)
         let cubeRoot = z8.math.root(3)

@@ -44,18 +44,19 @@ extension Complex.Number.Math.Log {
     }
 }
 
-extension Complex.Number.Math.Log where Scalar: BinaryFloatingPoint & Numeric.Transcendental {
+extension Complex.Number.Math.Log where Scalar: BinaryFloatingPoint & Trigonometry.Circular & Exponential.`Protocol` {
 
     @inlinable
     public func callAsFunction() -> Complex.Number<Scalar> {
         let z = complex
 
-        guard z.isFinite && !z.isZero else { return .infinity }
-
         let x = z.real._value
         let y = z.imaginary._value
 
-        let phase = Scalar._atan2(y, x)
+        let phase = Scalar.atan2(y, x)
+        if x.isInfinite || y.isInfinite { return Complex.Number(.infinity, phase) }
+        if x.isNaN || y.isNaN { return Complex.Number(.nan, .nan) }
+        if z.isZero { return Complex.Number(-.infinity, phase) }
 
         let u = max(abs(x), abs(y))
         let v = min(abs(x), abs(y))
@@ -63,24 +64,24 @@ extension Complex.Number.Math.Log where Scalar: BinaryFloatingPoint & Numeric.Tr
         let r = v / u
         if u >= 1 || u >= u * u + v * v {
             return Complex.Number(
-                Scalar._log(u) + Scalar._log1p(r * r) / 2,
+                Scalar.log(u) + Scalar.log1p(r * r) / 2,
                 phase
             )
         }
 
-        let (a, b) = Numeric.Augmented.product(u, u)
-        let (c, d) = Numeric.Augmented.product(v, v)
-        var (s, e) = Numeric.Augmented.sum(large: Scalar(-1), small: a)
+        let (a, b) = Multiplication.augmented(u, u)
+        let (c, d) = Multiplication.augmented(v, v)
+        var (s, e) = Addition.augmented(large: Scalar(-1), small: a)
         s = (s + c) + e + b + d
 
         return Complex.Number(
-            Scalar._log1p(s) / 2,
+            Scalar.log1p(s) / 2,
             phase
         )
     }
 }
 
-extension Complex.Number.Math.Log.One where Scalar: BinaryFloatingPoint & Numeric.Transcendental {
+extension Complex.Number.Math.Log.One where Scalar: BinaryFloatingPoint & Trigonometry.Circular & Exponential.`Protocol` {
 
     @inlinable
     public func plus() -> Complex.Number<Scalar> {
@@ -90,20 +91,19 @@ extension Complex.Number.Math.Log.One where Scalar: BinaryFloatingPoint & Numeri
         let y = z.imaginary._value
 
         guard 2 * abs(x) < 1 && abs(y) < 1 else {
-            let one = Complex.Number<Scalar>.one
-            return (one + z).math.log()
+            return Complex.Number(1 + x, y).math.log()
         }
 
         let onePlusX = 1 + x
-        let phase = Scalar._atan2(y, onePlusX)
+        let phase = Scalar.atan2(y, onePlusX)
 
-        let xp2 = Numeric.Augmented.sum(large: Scalar(2), small: x)
-        let a = Numeric.Augmented.product(x, xp2.head)
-        let y2 = Numeric.Augmented.product(y, y)
+        let xp2 = Addition.augmented(large: Scalar(2), small: x)
+        let a = Multiplication.augmented(x, xp2.head)
+        let y2 = Multiplication.augmented(y, y)
         let s = (a.head + y2.head + a.tail + y2.tail) + x * xp2.tail
 
         return Complex.Number(
-            Scalar._log1p(s) / 2,
+            Scalar.log1p(s) / 2,
             phase
         )
     }

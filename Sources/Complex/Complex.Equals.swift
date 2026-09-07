@@ -23,25 +23,40 @@ extension Complex.Number {
     }
 }
 
-extension Complex.Number.Equals where Scalar: BinaryFloatingPoint & Numeric.Transcendental {
-
+extension Complex.Number.Equals where Scalar: BinaryFloatingPoint {
     @inlinable
     public func approximate(
         _ other: Complex.Number<Scalar>,
         tolerance: Complex.Real<Scalar>
     ) -> Bool {
-        (complex - other).magnitude() <= tolerance
+        approximate(other, absolute: tolerance)
     }
 
+    /// Tests Euclidean distance with validated absolute and relative allowances.
     @inlinable
     public func approximate(
         _ other: Complex.Number<Scalar>,
         absolute: Complex.Real<Scalar>,
         relative: Complex.Real<Scalar> = .zero
     ) -> Bool {
-        let diff = (complex - other).magnitude()
-        let scale = max(complex.magnitude(), other.magnitude())
-        return diff <= absolute + relative * scale
+        guard let allowance = try? Tolerance<Scalar>(absolute: absolute._value, relative: relative._value) else { return false }
+        if complex == other { return true }
+        guard complex.isFinite && other.isFinite else { return false }
+        let x = complex.real._value, y = complex.imaginary._value
+        let u = other.real._value, v = other.imaginary._value
+        let dx = x - u, dy = y - v
+        let distance = Complex.Number<Scalar>._hypot(dx, dy)
+        if distance.isFinite && distance <= allowance.absolute { return true }
+        if allowance.relative == 0 { return false }
+        let scale = max(max(x.magnitude, y.magnitude), max(u.magnitude, v.magnitude))
+        guard scale != 0 else { return true }
+        let sx = dx.isFinite ? dx / scale : x / scale - u / scale
+        let sy = dy.isFinite ? dy / scale : y / scale - v / scale
+        let scaledDistance = Complex.Number<Scalar>._hypot(sx, sy)
+        let scaledLength = max(
+            Complex.Number<Scalar>._hypot(x / scale, y / scale),
+            Complex.Number<Scalar>._hypot(u / scale, v / scale))
+        return scaledDistance <= allowance.absolute / scale + allowance.relative * scaledLength
     }
 }
 

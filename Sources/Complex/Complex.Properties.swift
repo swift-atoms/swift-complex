@@ -26,7 +26,7 @@ extension Complex.Number where Scalar: BinaryFloatingPoint {
     }
 }
 
-extension Complex.Number where Scalar: BinaryFloatingPoint & Numeric.Transcendental {
+extension Complex.Number where Scalar: BinaryFloatingPoint {
 
     @inlinable
     public var normalized: Self? {

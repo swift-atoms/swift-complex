@@ -51,7 +51,7 @@ struct `Complex polar coordinates describe length and phase` {
 
         let z = Complex.Number(length: length, phase: phase)
 
-        let expectedValue = 5.0 * Double.math.sqrt(2.0) / 2.0
+        let expectedValue = 5.0 * Double(2).squareRoot() / 2.0
         #expect(z.real.equals.approximate(expectedValue.real, tolerance: 1e-10))
         #expect(z.imaginary.equals.approximate(expectedValue.i, tolerance: 1e-10))
     }

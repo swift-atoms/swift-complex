@@ -21,61 +21,75 @@ extension Complex.Number.Math {
     }
 }
 
-extension Complex.Number.Math where Scalar: BinaryFloatingPoint & Numeric.Transcendental {
-
+extension Complex.Number.Math where Scalar: BinaryFloatingPoint {
+    /// Principal square root. Signed imaginary zero chooses the branch-cut side.
     @inlinable
     public func sqrt() -> Complex.Number<Scalar> {
-        let z = complex
-        let lenSquared = z.magnitude.squared
-
-        if lenSquared.isNormal {
-
-            let norm = Scalar._sqrt(lenSquared._value)
-            let u = Scalar._sqrt((norm + z.real.abs._value) / 2)
-            let v = z.imaginary._value / (2 * u)
-
-            guard z.real.sign == .plus else {
-                return Complex.Number(abs(v), Scalar(signOf: z.imaginary._value, magnitudeOf: u))
+        let x = complex.real._value
+        let y = complex.imaginary._value
+        if y.isInfinite { return Complex.Number(.infinity, y) }
+        if x.isInfinite {
+            if x.sign == .plus {
+                return Complex.Number(.infinity, y.isNaN ? .nan : Scalar(signOf: y, magnitudeOf: 0))
             }
-            return Complex.Number(u, v)
+            return Complex.Number(y.isNaN ? .nan : 0, Scalar(signOf: y, magnitudeOf: .infinity))
         }
+        if x.isNaN || y.isNaN { return Complex.Number(.nan, .nan) }
+        if complex.isZero { return Complex.Number(0, y) }
 
-        if z.isZero { return Complex.Number(0, z.imaginary._value) }
-        if !z.isFinite { return z }
-
-        let scale = max(abs(z.real._value), abs(z.imaginary._value))
-        let scaled = z.scalar.divide(by: Complex.Real(scale))
-        return scaled.math.sqrt().scalar.multiply(by: Complex.Real(Scalar._sqrt(scale)))
-    }
-
-    @inlinable
-    public func root(_ n: Int) -> Complex.Number<Scalar> {
-        let z = complex
-        if z.isZero { return .zero }
-        return z.math.log().scalar.divide(by: Complex.Real(Scalar(n))).math.exp()
+        let scale = max(x.magnitude, y.magnitude)
+        let exponent = scale.exponent
+        let evenExponent = exponent - (exponent & 1)
+        let a = Scalar(sign: .plus, exponent: -evenExponent, significand: x.magnitude)
+        let b = Scalar(sign: .plus, exponent: -evenExponent, significand: y.magnitude)
+        let norm = Complex.Number<Scalar>._hypot(a, b)
+        let root = ((norm + a) / 2).squareRoot()
+        let large = Scalar(sign: .plus, exponent: evenExponent / 2, significand: root)
+        let small = y.magnitude / (2 * large)
+        return x.sign == .minus
+            ? Complex.Number(small, Scalar(signOf: y, magnitudeOf: large))
+            : Complex.Number(large, Scalar(signOf: y, magnitudeOf: small))
     }
 }
 
-extension Complex.Number.Math.Pow where Scalar: BinaryFloatingPoint & Numeric.Transcendental {
+extension Complex.Number.Math
+where Scalar: BinaryFloatingPoint & Trigonometry.Circular & Exponential.`Protocol` {
+    /// Principal root, with negative degrees taking a reciprocal and degree zero producing NaN.
+    @inlinable
+    public func root(_ n: Int) -> Complex.Number<Scalar> {
+        if n == 0 { return Complex.Number(.nan, .nan) }
+        if n == 1 { return complex }
+        if n == 2 { return sqrt() }
+        if n == -1 { return Complex.Number<Scalar>.one / complex }
+        if complex.isZero { return n < 0 ? .infinity : .zero }
+        return complex.math.log().scalar.divide(by: Complex.Real(Scalar(n))).math.exp()
+    }
+}
 
+extension Complex.Number.Math.Pow
+where Scalar: BinaryFloatingPoint & Trigonometry.Circular & Exponential.`Protocol` {
     @inlinable
     public func callAsFunction(_ w: Complex.Number<Scalar>) -> Complex.Number<Scalar> {
         let z = complex
-        if z.isZero {
-            return w.real._value > 0 ? .zero : .infinity
-        }
+        if z.isZero { return w.real._value > 0 ? .zero : .infinity }
         return (w * z.math.log()).math.exp()
     }
+}
 
+extension Complex.Number.Math.Pow where Scalar: BinaryFloatingPoint {
+    /// Integer powers use multiplication and reciprocals, without logarithms or angle reduction.
     @inlinable
     public func callAsFunction(_ n: Int) -> Complex.Number<Scalar> {
-        let z = complex
-        if z.isZero {
-            if n < 0 { return .infinity }
-            if n == 0 { return .one }
-            return .zero
+        if n == 0 { return .one }
+        if complex.isZero { return n < 0 ? .infinity : .zero }
+        var exponent = n.magnitude
+        var factor = n < 0 ? Complex.Number<Scalar>.one / complex : complex
+        var result = Complex.Number<Scalar>.one
+        while exponent != 0 {
+            if exponent & 1 != 0 { result *= factor }
+            exponent >>= 1
+            if exponent != 0 { factor *= factor }
         }
-
-        return z.math.log().scalar.multiply(by: Complex.Real(Scalar(n))).math.exp()
+        return result
     }
 }
