@@ -1,5 +1,5 @@
 extension Complex.Number where Scalar: BinaryFloatingPoint & Exponential.`Protocol` {
-    /// Scales an exponential component without overflowing exp(x) before a small coefficient applies.
+
     @inlinable
     internal static func _exponentialComponent(_ coefficient: Scalar, exponent: Scalar, halved: Bool = false) -> Scalar {
         if coefficient == 0 { return coefficient }

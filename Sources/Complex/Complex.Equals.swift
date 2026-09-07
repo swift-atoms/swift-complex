@@ -32,7 +32,7 @@ extension Complex.Number.Equals where Scalar: BinaryFloatingPoint {
         approximate(other, absolute: tolerance)
     }
 
-    /// Tests Euclidean distance with validated absolute and relative allowances.
+
     @inlinable
     public func approximate(
         _ other: Complex.Number<Scalar>,

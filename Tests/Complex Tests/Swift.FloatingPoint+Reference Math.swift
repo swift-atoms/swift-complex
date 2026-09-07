@@ -1,4 +1,4 @@
-// Test-only reference backend. Production conformances belong to the higher Numeric package.
+
 public import Trigonometry
 public import Exponential
 #if canImport(Darwin)

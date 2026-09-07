@@ -22,7 +22,7 @@ extension Complex.Number.Math {
 }
 
 extension Complex.Number.Math where Scalar: BinaryFloatingPoint {
-    /// Principal square root. Signed imaginary zero chooses the branch-cut side.
+
     @inlinable
     public func sqrt() -> Complex.Number<Scalar> {
         let x = complex.real._value
@@ -54,7 +54,7 @@ extension Complex.Number.Math where Scalar: BinaryFloatingPoint {
 
 extension Complex.Number.Math
 where Scalar: BinaryFloatingPoint & Trigonometry.Circular & Exponential.`Protocol` {
-    /// Principal root, with negative degrees taking a reciprocal and degree zero producing NaN.
+
     @inlinable
     public func root(_ n: Int) -> Complex.Number<Scalar> {
         if n == 0 { return Complex.Number(.nan, .nan) }
@@ -77,7 +77,7 @@ where Scalar: BinaryFloatingPoint & Trigonometry.Circular & Exponential.`Protoco
 }
 
 extension Complex.Number.Math.Pow where Scalar: BinaryFloatingPoint {
-    /// Integer powers use multiplication and reciprocals, without logarithms or angle reduction.
+
     @inlinable
     public func callAsFunction(_ n: Int) -> Complex.Number<Scalar> {
         if n == 0 { return .one }

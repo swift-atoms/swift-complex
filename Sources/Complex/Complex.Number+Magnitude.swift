@@ -1,6 +1,6 @@
 extension Complex.Number where Scalar: BinaryFloatingPoint {
-    /// A scaled Euclidean norm using Swift arithmetic and squareRoot.
-    /// Infinity dominates NaN, matching the extended-real hypot convention.
+
+
     @inlinable
     internal static func _hypot(_ x: Scalar, _ y: Scalar) -> Scalar {
         if x.isInfinite || y.isInfinite { return .infinity }
