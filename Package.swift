@@ -13,10 +13,9 @@ let package = Package(
     ],
     products: [
         .library(name: "Complex", targets: ["Complex"]),
-        .library(
-            name: "Complex Test Support",
-            targets: ["Complex Test Support"]
-        ),
+        .library(name: "Complex Standard Library Integration", targets: ["Complex Standard Library Integration"]),
+        .library(name: "Complex Foundation Library Integration", targets: ["Complex Foundation Library Integration"]),
+        .library(name: "Complex Test Support", targets: ["Complex Test Support"]),
     ],
     dependencies: [
         .package(
@@ -36,20 +35,32 @@ let package = Package(
         .target(
             name: "Complex",
             dependencies: [
-                .product(name: "Real", package: "swift-numeric"),
-                .product(name: "Numeric Relaxed", package: "swift-numeric"),
+                .product(name: "Numeric", package: "swift-numeric"),
                 .product(name: "Angle", package: "swift-angle"),
                 .product(name: "Tagged", package: "swift-tagged"),
-            ]
+            ],
+            path: "Sources/Complex"
+        ),
+        .target(
+            name: "Complex Standard Library Integration",
+            dependencies: [
+                .target(name: "Complex"),
+            ],
+            path: "Sources/Complex Standard Library Integration"
+        ),
+        .target(
+            name: "Complex Foundation Library Integration",
+            dependencies: [
+                .target(name: "Complex"),
+                .target(name: "Complex Standard Library Integration"),
+            ],
+            path: "Sources/Complex Foundation Library Integration"
         ),
         .target(
             name: "Complex Test Support",
             dependencies: [
                 .target(name: "Complex"),
-                .product(
-                    name: "Tagged Test Support",
-                    package: "swift-tagged"
-                ),
+                .product(name: "Tagged Test Support", package: "swift-tagged"),
             ],
             path: "Tests/Support"
         ),
@@ -57,19 +68,19 @@ let package = Package(
             name: "Complex Tests",
             dependencies: [
                 .target(name: "Complex"),
-                .product(
-                    name: "Tagged Standard Library Integration",
-                    package: "swift-tagged"
-                ),
+                .product(name: "Tagged Standard Library Integration", package: "swift-tagged"),
                 .target(name: "Complex Test Support"),
-            ]
+                .target(name: "Complex Standard Library Integration"),
+                .target(name: "Complex Foundation Library Integration"),
+            ],
+            path: "Tests/Complex Tests"
         ),
     ],
     swiftLanguageModes: [.v6]
 )
 
-for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
-    let ecosystem: [SwiftSetting] = [
+for target in package.targets {
+    target.swiftSettings = [
         .strictMemorySafety(),
         .enableUpcomingFeature("ExistentialAny"),
         .enableUpcomingFeature("InternalImportsByDefault"),
@@ -78,8 +89,4 @@ for target in package.targets where ![.system, .binary, .plugin, .macro].contain
         .enableExperimentalFeature("Lifetimes"),
         .enableUpcomingFeature("InferIsolatedConformances"),
     ]
-
-    let package: [SwiftSetting] = []
-
-    target.swiftSettings = (target.swiftSettings ?? []) + ecosystem + package
 }
