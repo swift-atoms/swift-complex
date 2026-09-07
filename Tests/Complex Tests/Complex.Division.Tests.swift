@@ -3,12 +3,12 @@ import Testing
 @testable import Complex
 
 @Suite
-struct ComplexDivisionTests {
+struct `Complex division preserves quotients across scale and boundary values` {
 
     let tolerance: Complex.Real<Double> = 1e-10
 
     @Test
-    func basicDivision() {
+    func `Multiplying a complex quotient by its divisor recovers the numerator`() {
         let z = Complex.Number(3.0, 4.0)
         let w = Complex.Number(1.0, 2.0)
         let result = z / w
@@ -18,14 +18,14 @@ struct ComplexDivisionTests {
     }
 
     @Test
-    func divisionByOne() {
+    func `Complex division by one preserves the numerator`() {
         let z = Complex.Number(3.0, 4.0)
         let result = z / Complex.Number<Double>.one
         #expect(result.equals.approximate(z, tolerance: tolerance))
     }
 
     @Test
-    func divisionByI() {
+    func `Division by the imaginary unit rotates the Cartesian components`() {
 
         let z = Complex.Number(3.0, 4.0)
         let result = z / Complex.Number<Double>.i
@@ -35,20 +35,20 @@ struct ComplexDivisionTests {
     }
 
     @Test
-    func divisionByZero() {
+    func `Complex division by zero produces a nonfinite result`() {
         let z = Complex.Number(1.0, 2.0)
         let result = z / Complex.Number<Double>.zero
         #expect(!result.isFinite)
     }
 
     @Test
-    func zeroDividedByNonZero() {
+    func `Zero divided by a nonzero complex value remains zero`() {
         let result = Complex.Number<Double>.zero / Complex.Number(1.0, 2.0)
         #expect(result.equals.approximate(Complex.Number<Double>.zero, tolerance: tolerance))
     }
 
     @Test
-    func divisionWithLargeDenominator() {
+    func `Equal large complex values divide to one`() {
 
         let large = Double.greatestFiniteMagnitude / 4
         let z = Complex.Number(large, large)
@@ -59,7 +59,7 @@ struct ComplexDivisionTests {
     }
 
     @Test
-    func divisionWithSmallDenominator() {
+    func `Complex division by a small denominator retains a finite quotient`() {
 
         let small = Double.leastNormalMagnitude * 4
         let z = Complex.Number(1.0, 1.0)
@@ -71,7 +71,7 @@ struct ComplexDivisionTests {
     }
 
     @Test
-    func divisionPreservesScale() {
+    func `Scaling both complex operands preserves their quotient`() {
 
         let z = Complex.Number(3.0, 4.0)
         let w = Complex.Number(1.0, 2.0)
@@ -84,7 +84,7 @@ struct ComplexDivisionTests {
     }
 
     @Test
-    func multiplicationDivisionInverse() {
+    func `Complex division reverses multiplication by the divisor`() {
         let z = Complex.Number(3.0, 4.0)
         let w = Complex.Number(1.0, 2.0)
 
@@ -94,7 +94,7 @@ struct ComplexDivisionTests {
     }
 
     @Test
-    func reciprocalConsistency() {
+    func `Complex reciprocals agree with division of one`() {
         let w = Complex.Number(1.0, 2.0)
 
         let recip1 = Complex.Number<Double>.one / w
