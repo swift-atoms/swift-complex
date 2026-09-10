@@ -13,12 +13,6 @@ extension Complex {
             self.real = real
             self.imaginary = imaginary
         }
-
-        @inlinable
-        public init(_ real: Scalar, _ imaginary: Scalar) {
-            self.real = Real(real)
-            self.imaginary = Imaginary(imaginary)
-        }
     }
 }
 
@@ -45,5 +39,12 @@ extension Complex.Number where Scalar: BinaryFloatingPoint {
     @inlinable
     public init(_ real: Scalar) {
         self.init(real, .zero)
+    }
+}
+
+extension Complex.Number {
+    @inlinable
+    public init(_ real: Scalar, _ imaginary: Scalar) {
+        self.init(real: Complex.Real(real), imaginary: Complex.Imaginary(imaginary))
     }
 }
