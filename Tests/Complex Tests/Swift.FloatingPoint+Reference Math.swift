@@ -3,7 +3,7 @@ public import Trigonometry
 public import Exponential
 #if canImport(Darwin)
 import Darwin
-extension Swift.Double: @retroactive Trigonometry.`Protocol`, @retroactive Exponential.`Protocol` {
+extension Swift::Double: @retroactive Trigonometry.`Protocol`, @retroactive Exponential.`Protocol` {
     public static func sin(_ x: Double) -> Double { Darwin.sin(x) }
     public static func cos(_ x: Double) -> Double { Darwin.cos(x) }
     public static func tan(_ x: Double) -> Double { Darwin.tan(x) }
@@ -25,7 +25,7 @@ extension Swift.Double: @retroactive Trigonometry.`Protocol`, @retroactive Expon
     public static func log2(_ x: Double) -> Double { Darwin.log2(x) }
     public static func log10(_ x: Double) -> Double { Darwin.log10(x) }
 }
-extension Swift.Float: @retroactive Trigonometry.`Protocol`, @retroactive Exponential.`Protocol` {
+extension Swift::Float: @retroactive Trigonometry.`Protocol`, @retroactive Exponential.`Protocol` {
     public static func sin(_ x: Float) -> Float { Darwin.sinf(x) }
     public static func cos(_ x: Float) -> Float { Darwin.cosf(x) }
     public static func tan(_ x: Float) -> Float { Darwin.tanf(x) }
@@ -49,7 +49,7 @@ extension Swift.Float: @retroactive Trigonometry.`Protocol`, @retroactive Expone
 }
 #elseif canImport(Glibc)
 import Glibc
-extension Swift.Double: @retroactive Trigonometry.`Protocol`, @retroactive Exponential.`Protocol` {
+extension Swift::Double: @retroactive Trigonometry.`Protocol`, @retroactive Exponential.`Protocol` {
     public static func sin(_ x: Double) -> Double { Glibc.sin(x) }
     public static func cos(_ x: Double) -> Double { Glibc.cos(x) }
     public static func tan(_ x: Double) -> Double { Glibc.tan(x) }
@@ -71,7 +71,7 @@ extension Swift.Double: @retroactive Trigonometry.`Protocol`, @retroactive Expon
     public static func log2(_ x: Double) -> Double { Glibc.log2(x) }
     public static func log10(_ x: Double) -> Double { Glibc.log10(x) }
 }
-extension Swift.Float: @retroactive Trigonometry.`Protocol`, @retroactive Exponential.`Protocol` {
+extension Swift::Float: @retroactive Trigonometry.`Protocol`, @retroactive Exponential.`Protocol` {
     public static func sin(_ x: Float) -> Float { Glibc.sinf(x) }
     public static func cos(_ x: Float) -> Float { Glibc.cosf(x) }
     public static func tan(_ x: Float) -> Float { Glibc.tanf(x) }

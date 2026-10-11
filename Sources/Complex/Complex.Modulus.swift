@@ -21,7 +21,7 @@ extension Tagged where Tag == Complex.Number<Underlying>.Modulus, Underlying: Ad
     }
 }
 
-extension Tagged where Tag == Complex.Number<Underlying>.Modulus, Underlying: Swift.Numeric {
+extension Tagged where Tag == Complex.Number<Underlying>.Modulus, Underlying: Swift::Numeric {
 
     @inlinable
     public static func * (lhs: Self, rhs: Self) -> Self {

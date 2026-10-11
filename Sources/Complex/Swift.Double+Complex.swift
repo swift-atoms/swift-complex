@@ -1,4 +1,4 @@
-extension Swift.Double {
+extension Swift::Double {
 
     @inlinable
     public var real: Complex.Real<Double> { .init(self) }

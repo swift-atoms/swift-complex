@@ -5,21 +5,24 @@ extension Complex {
         internal var _value: Scalar
 
         @inlinable
-        public var value: Scalar {
-            @inline(always) get { _value }
-            @inline(always) set { _value = newValue }
-        }
-
-        @inlinable
         public init(_ value: Scalar) {
             self._value = value
         }
     }
 }
 
-extension Complex.Imaginary: Swift.Equatable where Scalar: Swift.Equatable {}
+extension Complex.Imaginary {
 
-extension Complex.Imaginary: Swift.Hashable where Scalar: Swift.Hashable {}
+    @inlinable
+    public var value: Scalar {
+        @inline(always) get { _value }
+        @inline(always) set { _value = newValue }
+    }
+}
+
+extension Complex.Imaginary: Swift::Equatable where Scalar: Swift::Equatable {}
+
+extension Complex.Imaginary: Swift::Hashable where Scalar: Swift::Hashable {}
 
 extension Complex.Imaginary where Scalar: BinaryFloatingPoint {
 
@@ -54,5 +57,5 @@ extension Complex.Imaginary where Scalar: BinaryFloatingPoint {
     public var sign: FloatingPointSign { _value.sign }
 
     @inlinable
-    public var abs: Complex.Real<Scalar> { Complex.Real(Swift.abs(_value)) }
+    public var abs: Complex.Real<Scalar> { Complex.Real(Swift::abs(_value)) }
 }

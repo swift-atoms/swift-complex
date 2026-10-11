@@ -13,7 +13,7 @@ extension Complex.Imaginary {
     }
 }
 
-extension Complex.Imaginary.Equals: Swift.Sendable where Scalar: Swift.Sendable {}
+extension Complex.Imaginary.Equals: Swift::Sendable where Scalar: Swift::Sendable {}
 
 extension Complex.Imaginary {
 

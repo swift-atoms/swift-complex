@@ -13,7 +13,7 @@ extension Complex.Number {
     }
 }
 
-extension Complex.Number.Equals: Swift.Sendable where Scalar: Swift.Sendable {}
+extension Complex.Number.Equals: Swift::Sendable where Scalar: Swift::Sendable {}
 
 extension Complex.Number {
 
@@ -73,7 +73,7 @@ extension Complex.Number.Equals {
     }
 }
 
-extension Complex.Number.Equals.Componentwise: Swift.Sendable where Scalar: Swift.Sendable {}
+extension Complex.Number.Equals.Componentwise: Swift::Sendable where Scalar: Swift::Sendable {}
 
 extension Complex.Number.Equals {
 

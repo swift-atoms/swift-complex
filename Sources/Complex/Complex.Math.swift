@@ -11,7 +11,7 @@ extension Complex.Number {
     }
 }
 
-extension Complex.Number.Math: Swift.Sendable where Scalar: Swift.Sendable {
+extension Complex.Number.Math: Swift::Sendable where Scalar: Swift::Sendable {
 }
 
 extension Complex.Number {

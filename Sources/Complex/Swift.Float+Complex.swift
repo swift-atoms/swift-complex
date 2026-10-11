@@ -1,4 +1,4 @@
-extension Swift.Float {
+extension Swift::Float {
 
     @inlinable
     public var real: Complex.Real<Float> { .init(self) }

@@ -68,7 +68,6 @@ let package = Package(
                 .target(name: "Complex"),
                 .product(name: "Tagged", package: "swift-tagged"),
                 .target(name: "Complex Test Support"),
-                .target(name: "Complex Foundation Integration"),
             ],
             path: "Tests/Complex Tests"
         ),
@@ -76,7 +75,7 @@ let package = Package(
     swiftLanguageModes: [.v6]
 )
 
-for target in package.targets where ![.system, .binary, .plugin].contains(target.type) {
+for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
     target.swiftSettings = (target.swiftSettings ?? []) + [
         .strictMemorySafety(),
         .enableUpcomingFeature("ExistentialAny"),

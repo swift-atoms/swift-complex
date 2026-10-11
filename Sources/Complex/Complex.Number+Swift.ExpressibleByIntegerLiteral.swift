@@ -1,5 +1,5 @@
-extension Complex.Number: Swift.ExpressibleByIntegerLiteral
-where Scalar: Swift.ExpressibleByIntegerLiteral & BinaryFloatingPoint {
+extension Complex.Number: Swift::ExpressibleByIntegerLiteral
+where Scalar: Swift::ExpressibleByIntegerLiteral & BinaryFloatingPoint {
 
     @inlinable
     public init(integerLiteral value: Scalar.IntegerLiteralType) {

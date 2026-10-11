@@ -1,5 +1,5 @@
 #if !hasFeature(Embedded)
-extension Complex.Number: Swift.Decodable where Scalar: Swift.Decodable {
+extension Complex.Number: Swift::Decodable where Scalar: Swift::Decodable {
 
         public init(from decoder: any Decoder) throws {
             var container = try decoder.unkeyedContainer()
