@@ -4,6 +4,8 @@ import Testing
 import Darwin
 #elseif canImport(Glibc)
 import Glibc
+#elseif canImport(ucrt)
+import ucrt
 #endif
 
 @Suite struct `Native complex operations preserve numerical boundaries` {
@@ -20,6 +22,8 @@ import Glibc
             let expected = Darwin.hypot(x, y)
             #elseif canImport(Glibc)
             let expected = Glibc.hypot(x, y)
+            #elseif canImport(ucrt)
+            let expected = ucrt.hypot(x, y)
             #endif
             #expect(actual == expected || abs(actual - expected) <= 2 * max(actual.ulp, expected.ulp))
         }
