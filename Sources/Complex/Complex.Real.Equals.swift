@@ -26,8 +26,7 @@ extension Complex.Real {
 extension Complex.Real.Equals where Scalar: BinaryFloatingPoint {
 
     @inlinable
-    public func approximate(_ other: Complex.Real<Scalar>, tolerance: Complex.Real<Scalar>) -> Bool
-    {
+    public func approximate(_ other: Complex.Real<Scalar>, tolerance: Complex.Real<Scalar>) -> Bool {
         (try? Tolerance<Scalar>(absolute: tolerance._value))?.contains(real._value, other._value)
             ?? false
     }

@@ -10,8 +10,7 @@ extension Complex.Number {
 extension Complex.Number.Polar where Scalar: BinaryFloatingPoint {
 
     @inlinable
-    public static func length(of z: Complex.Number<Scalar>) -> Complex.Number<Scalar>.Modulus.Value
-    {
+    public static func length(of z: Complex.Number<Scalar>) -> Complex.Number<Scalar>.Modulus.Value {
         Complex.Number.Modulus.Value(
             _unchecked: Complex.Number<Scalar>._hypot(z.real._value, z.imaginary._value)
         )
