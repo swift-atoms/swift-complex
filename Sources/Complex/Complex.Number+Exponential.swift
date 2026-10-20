@@ -1,7 +1,11 @@
 extension Complex.Number where Scalar: BinaryFloatingPoint & Exponential.`Protocol` {
 
     @inlinable
-    internal static func _exponentialComponent(_ coefficient: Scalar, exponent: Scalar, halved: Bool = false) -> Scalar {
+    internal static func _exponentialComponent(
+        _ coefficient: Scalar,
+        exponent: Scalar,
+        halved: Bool = false
+    ) -> Scalar {
         if coefficient == 0 { return coefficient }
         if exponent < Scalar.log(Scalar.greatestFiniteMagnitude) - 1 {
             let magnitude = Scalar.exp(exponent)

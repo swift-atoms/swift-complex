@@ -30,7 +30,10 @@ extension Complex.Imaginary.Equals where Scalar: BinaryFloatingPoint {
         _ other: Complex.Imaginary<Scalar>,
         tolerance: Complex.Real<Scalar>
     ) -> Bool {
-        (try? Tolerance<Scalar>(absolute: tolerance._value))?.contains(imaginary._value, other._value) ?? false
+        (try? Tolerance<Scalar>(absolute: tolerance._value))?.contains(
+            imaginary._value,
+            other._value
+        ) ?? false
     }
 
     @inlinable

@@ -1,4 +1,5 @@
-extension Complex.Number.Math where Scalar: BinaryFloatingPoint & Trigonometry.`Protocol` & Exponential.`Protocol` {
+extension Complex.Number.Math
+where Scalar: BinaryFloatingPoint & Trigonometry.`Protocol` & Exponential.`Protocol` {
 
     @inlinable
     public func acos() -> Complex.Number<Scalar> {

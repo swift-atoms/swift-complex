@@ -32,19 +32,26 @@ extension Complex.Number.Equals where Scalar: BinaryFloatingPoint {
         approximate(other, absolute: tolerance)
     }
 
-
     @inlinable
     public func approximate(
         _ other: Complex.Number<Scalar>,
         absolute: Complex.Real<Scalar>,
         relative: Complex.Real<Scalar> = .zero
     ) -> Bool {
-        guard let allowance = try? Tolerance<Scalar>(absolute: absolute._value, relative: relative._value) else { return false }
+        guard
+            let allowance = try? Tolerance<Scalar>(
+                absolute: absolute._value,
+                relative: relative._value
+            )
+        else { return false }
         if complex == other { return true }
         guard complex.isFinite && other.isFinite else { return false }
-        let x = complex.real._value, y = complex.imaginary._value
-        let u = other.real._value, v = other.imaginary._value
-        let dx = x - u, dy = y - v
+        let x = complex.real._value
+        let y = complex.imaginary._value
+        let u = other.real._value
+        let v = other.imaginary._value
+        let dx = x - u
+        let dy = y - v
         let distance = Complex.Number<Scalar>._hypot(dx, dy)
         if distance.isFinite && distance <= allowance.absolute { return true }
         if allowance.relative == 0 { return false }
@@ -55,7 +62,8 @@ extension Complex.Number.Equals where Scalar: BinaryFloatingPoint {
         let scaledDistance = Complex.Number<Scalar>._hypot(sx, sy)
         let scaledLength = max(
             Complex.Number<Scalar>._hypot(x / scale, y / scale),
-            Complex.Number<Scalar>._hypot(u / scale, v / scale))
+            Complex.Number<Scalar>._hypot(u / scale, v / scale)
+        )
         return scaledDistance <= allowance.absolute / scale + allowance.relative * scaledLength
     }
 }
@@ -90,7 +98,9 @@ extension Complex.Number.Equals.Componentwise where Scalar: BinaryFloatingPoint 
         _ other: Complex.Number<Scalar>,
         tolerance: Complex.Real<Scalar>
     ) -> Bool {
-        guard let allowance = try? Tolerance<Scalar>(absolute: tolerance._value) else { return false }
+        guard let allowance = try? Tolerance<Scalar>(absolute: tolerance._value) else {
+            return false
+        }
         return allowance.contains(complex.real._value, other.real._value)
             && allowance.contains(complex.imaginary._value, other.imaginary._value)
     }

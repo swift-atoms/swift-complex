@@ -44,7 +44,8 @@ extension Complex.Number.Math.Log {
     }
 }
 
-extension Complex.Number.Math.Log where Scalar: BinaryFloatingPoint & Trigonometry.Circular & Exponential.`Protocol` {
+extension Complex.Number.Math.Log
+where Scalar: BinaryFloatingPoint & Trigonometry.Circular & Exponential.`Protocol` {
 
     @inlinable
     public func callAsFunction() -> Complex.Number<Scalar> {
@@ -81,7 +82,8 @@ extension Complex.Number.Math.Log where Scalar: BinaryFloatingPoint & Trigonomet
     }
 }
 
-extension Complex.Number.Math.Log.One where Scalar: BinaryFloatingPoint & Trigonometry.Circular & Exponential.`Protocol` {
+extension Complex.Number.Math.Log.One
+where Scalar: BinaryFloatingPoint & Trigonometry.Circular & Exponential.`Protocol` {
 
     @inlinable
     public func plus() -> Complex.Number<Scalar> {

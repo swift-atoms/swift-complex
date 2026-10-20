@@ -14,7 +14,10 @@ let package = Package(
     products: [
         .library(name: "Complex", targets: ["Complex"]),
 
-        .library(name: "Complex Foundation Integration", targets: ["Complex Foundation Integration"]),
+        .library(
+            name: "Complex Foundation Integration",
+            targets: ["Complex Foundation Integration"]
+        ),
         .library(name: "Complex Test Support", targets: ["Complex Test Support"]),
     ],
     dependencies: [
@@ -46,11 +49,11 @@ let package = Package(
             ],
             path: "Sources/Complex"
         ),
-        
+
         .target(
             name: "Complex Foundation Integration",
             dependencies: [
-                .target(name: "Complex"),
+                .target(name: "Complex")
             ],
             path: "Sources/Complex Foundation Integration"
         ),
@@ -76,14 +79,15 @@ let package = Package(
 )
 
 for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
-    target.swiftSettings = (target.swiftSettings ?? []) + [
-        .strictMemorySafety(),
-        .enableUpcomingFeature("ExistentialAny"),
-        .enableUpcomingFeature("InternalImportsByDefault"),
-        .enableUpcomingFeature("MemberImportVisibility"),
-        .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
-        .enableUpcomingFeature("InferIsolatedConformances"),
-        .enableExperimentalFeature("Lifetimes"),
-        .treatAllWarnings(as: .error),
-    ]
+    target.swiftSettings =
+        (target.swiftSettings ?? []) + [
+            .strictMemorySafety(),
+            .enableUpcomingFeature("ExistentialAny"),
+            .enableUpcomingFeature("InternalImportsByDefault"),
+            .enableUpcomingFeature("MemberImportVisibility"),
+            .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+            .enableUpcomingFeature("InferIsolatedConformances"),
+            .enableExperimentalFeature("Lifetimes"),
+            .treatAllWarnings(as: .error),
+        ]
 }

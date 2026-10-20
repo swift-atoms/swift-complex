@@ -48,7 +48,8 @@ extension Complex.Number.Math.Exp
 where Scalar: BinaryFloatingPoint & Trigonometry.Circular & Exponential.`Protocol` {
     @inlinable
     public func callAsFunction() -> Complex.Number<Scalar> {
-        let x = complex.real._value, y = complex.imaginary._value
+        let x = complex.real._value
+        let y = complex.imaginary._value
         if y == 0 { return Complex.Number(Scalar.exp(x), y) }
         if !y.isFinite {
             if x == -.infinity { return .zero }
@@ -58,7 +59,8 @@ where Scalar: BinaryFloatingPoint & Trigonometry.Circular & Exponential.`Protoco
         if x.isNaN { return Complex.Number(.nan, .nan) }
         return Complex.Number(
             Complex.Number<Scalar>._exponentialComponent(Scalar.cos(y), exponent: x),
-            Complex.Number<Scalar>._exponentialComponent(Scalar.sin(y), exponent: x))
+            Complex.Number<Scalar>._exponentialComponent(Scalar.sin(y), exponent: x)
+        )
     }
 }
 
@@ -66,7 +68,8 @@ extension Complex.Number.Math.Exp.Minus
 where Scalar: BinaryFloatingPoint & Trigonometry.Circular & Exponential.`Protocol` {
     @inlinable
     public func one() -> Complex.Number<Scalar> {
-        let x = complex.real._value, y = complex.imaginary._value
+        let x = complex.real._value
+        let y = complex.imaginary._value
         if y == 0 { return Complex.Number(Scalar.expm1(x), y) }
         if !complex.isFinite || x >= Scalar.log(Scalar.greatestFiniteMagnitude) - 1 {
             let value = complex.math.exp()

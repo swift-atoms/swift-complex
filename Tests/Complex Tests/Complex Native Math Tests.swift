@@ -1,31 +1,35 @@
 import Complex
 import Testing
+
 #if canImport(Darwin)
-import Darwin
+    import Darwin
 #elseif canImport(Glibc)
-import Glibc
+    import Glibc
 #elseif canImport(ucrt)
-import ucrt
+    import ucrt
 #endif
 
 @Suite struct `Native complex operations preserve numerical boundaries` {
     @Test func `Scaled norms agree with a platform oracle across binary exponents`() {
-        var state: UInt64 = 0x3141592653589793
+        var state: UInt64 = 0x3141_5926_5358_9793
         func next() -> Double {
-            state = state &* 6364136223846793005 &+ 1442695040888963407
-            return Double(bitPattern: state & 0x7FEFFFFFFFFFFFFF)
+            state = state &* 6_364_136_223_846_793_005 &+ 1_442_695_040_888_963_407
+            return Double(bitPattern: state & 0x7FEF_FFFF_FFFF_FFFF)
         }
         for _ in 0..<6000 {
-            let x = next(), y = next()
+            let x = next()
+            let y = next()
             let actual = Complex.Number(x, y).magnitude().value
             #if canImport(Darwin)
-            let expected = Darwin.hypot(x, y)
+                let expected = Darwin.hypot(x, y)
             #elseif canImport(Glibc)
-            let expected = Glibc.hypot(x, y)
+                let expected = Glibc.hypot(x, y)
             #elseif canImport(ucrt)
-            let expected = ucrt.hypot(x, y)
+                let expected = ucrt.hypot(x, y)
             #endif
-            #expect(actual == expected || abs(actual - expected) <= 2 * max(actual.ulp, expected.ulp))
+            #expect(
+                actual == expected || abs(actual - expected) <= 2 * max(actual.ulp, expected.ulp)
+            )
         }
     }
 
@@ -55,7 +59,9 @@ import ucrt
     }
 
     @Test func `Square roots remain finite at both ends of the scalar range`() {
-        for value in [Double.leastNonzeroMagnitude, .leastNormalMagnitude, 1, .greatestFiniteMagnitude] {
+        for value in [
+            Double.leastNonzeroMagnitude, .leastNormalMagnitude, 1, .greatestFiniteMagnitude,
+        ] {
             let root = Complex.Number(value, value).math.sqrt()
             #expect(root.isFinite && root.real.value > 0 && root.imaginary.value > 0)
             let ratio = root.imaginary.value / root.real.value
@@ -80,8 +86,18 @@ import ucrt
         #expect(value.equals.approximate(-value, absolute: 0, relative: 2))
         #expect(!value.equals.approximate(value, tolerance: -1))
         #expect(!value.equals.approximate(value, tolerance: Complex.Real(Double.nan)))
-        #expect(!Complex.Number(huge, 1e-100).equals.approximate(Complex.Number(huge, 0.0), tolerance: 1e-101))
-        #expect(Complex.Number(Double.infinity, 0.0).equals.approximate(Complex.Number(Double.infinity, 0.0), tolerance: 0))
+        #expect(
+            !Complex.Number(huge, 1e-100).equals.approximate(
+                Complex.Number(huge, 0.0),
+                tolerance: 1e-101
+            )
+        )
+        #expect(
+            Complex.Number(Double.infinity, 0.0).equals.approximate(
+                Complex.Number(Double.infinity, 0.0),
+                tolerance: 0
+            )
+        )
     }
 
     @Test func `Zero root degrees are invalid and negative roots use reciprocals`() {

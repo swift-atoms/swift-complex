@@ -44,7 +44,8 @@ extension Complex.Number.Math.Cos {
     }
 }
 
-extension Complex.Number.Math.Cos where Scalar: BinaryFloatingPoint & Trigonometry.`Protocol` & Exponential.`Protocol` {
+extension Complex.Number.Math.Cos
+where Scalar: BinaryFloatingPoint & Trigonometry.`Protocol` & Exponential.`Protocol` {
 
     @inlinable
     public func callAsFunction() -> Complex.Number<Scalar> {
@@ -54,7 +55,8 @@ extension Complex.Number.Math.Cos where Scalar: BinaryFloatingPoint & Trigonomet
     }
 }
 
-extension Complex.Number.Math.Cos.Minus where Scalar: BinaryFloatingPoint & Trigonometry.`Protocol` & Exponential.`Protocol` {
+extension Complex.Number.Math.Cos.Minus
+where Scalar: BinaryFloatingPoint & Trigonometry.`Protocol` & Exponential.`Protocol` {
 
     @inlinable
     public func one() -> Complex.Number<Scalar> {
@@ -64,7 +66,8 @@ extension Complex.Number.Math.Cos.Minus where Scalar: BinaryFloatingPoint & Trig
     }
 }
 
-extension Complex.Number.Math where Scalar: BinaryFloatingPoint & Trigonometry.`Protocol` & Exponential.`Protocol` {
+extension Complex.Number.Math
+where Scalar: BinaryFloatingPoint & Trigonometry.`Protocol` & Exponential.`Protocol` {
 
     @inlinable
     public func sin() -> Complex.Number<Scalar> {

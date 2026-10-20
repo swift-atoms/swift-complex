@@ -1,4 +1,5 @@
-extension Complex.Real: Swift::ExpressibleByFloatLiteral where Scalar: Swift::ExpressibleByFloatLiteral {
+extension Complex.Real: Swift::ExpressibleByFloatLiteral
+where Scalar: Swift::ExpressibleByFloatLiteral {
 
     @inlinable
     public init(floatLiteral value: Scalar.FloatLiteralType) {

@@ -1,4 +1,5 @@
-extension Complex.Imaginary: Swift::ExpressibleByIntegerLiteral where Scalar: Swift::ExpressibleByIntegerLiteral {
+extension Complex.Imaginary: Swift::ExpressibleByIntegerLiteral
+where Scalar: Swift::ExpressibleByIntegerLiteral {
 
     @inlinable
     public init(integerLiteral value: Scalar.IntegerLiteralType) {

@@ -1,6 +1,5 @@
 extension Complex.Number where Scalar: BinaryFloatingPoint {
 
-
     @inlinable
     internal static func _hypot(_ x: Scalar, _ y: Scalar) -> Scalar {
         if x.isInfinite || y.isInfinite { return .infinity }
