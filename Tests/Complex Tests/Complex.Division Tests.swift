@@ -101,4 +101,21 @@ struct `Complex division preserves quotients across scale and boundary values` {
         let recip2 = w.reciprocal
         #expect(recip1.equals.approximate(recip2, tolerance: tolerance))
     }
+
+    @Test
+    func `Non-finite operands give zero only for a finite numerator over an infinite divisor`() {
+        let tiny = Complex.Number(Double.leastNonzeroMagnitude, 0.0)
+        let infinite = Complex.Number(Double.infinity, 0.0)
+
+        let overTiny = infinite / tiny
+        #expect(!overTiny.isFinite)
+        #expect(overTiny.real._value == .infinity)
+
+        let infOverInf = infinite / infinite
+        #expect(infOverInf.real._value.isNaN)
+        #expect(infOverInf.imaginary._value.isNaN)
+
+        let finiteOverInf = Complex.Number(1.0, 2.0) / infinite
+        #expect(finiteOverInf.isZero)
+    }
 }

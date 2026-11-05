@@ -124,8 +124,9 @@ extension Complex.Number where Scalar: BinaryFloatingPoint {
     @inline(never)
     internal static func rescaledDivide(_ z: Self, _ w: Self) -> Self {
         if w.isZero { return .infinity }
-        if !z.isFinite || !w.isFinite {
-            return .zero
+        if !w.isFinite {
+            let wIsInfinite = w.real._value.isInfinite || w.imaginary._value.isInfinite
+            return z.isFinite && wIsInfinite ? .zero : Self(.nan, .nan)
         }
 
         let wMagnitude = max(w.real.abs._value, w.imaginary.abs._value)
